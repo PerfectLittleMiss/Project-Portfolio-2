@@ -16,10 +16,61 @@ namespace KinaoleLau_ConvertedData
             //Output Location
             //string _directory = @"../../output/";
 
+            bool running = true;
+
+            while(running)
+            {
+                PrintMenu();
+
+                string choice = Validation.GetString("Choose an option: ").ToLower();
+
+                switch(choice)
+                {
+                    case "1":
+                    case "convert the restaurant reviews database from sql to json":
+                    case "convert":
+
+                        break;
+
+                    case "2":
+                    case "showcase our 5 star rating system":
+                    case "showcase rating system":
+                        Console.WriteLine("Option not available yet.");
+
+                        break;
+
+                    case "3":
+                    case "showcase our animated bar graph review system":
+                    case "showcase review system":
+                        Console.WriteLine("Option not available yet.");
+
+                        break;
+
+                    case "4":
+                    case "play a card game":
+                    case "play game":
+                        Console.WriteLine("Option not available yet.");
+
+                        break;
+
+                    case "5":
+                    case "exit":
+                    case "quit":
+                        running = false;
+                        break;
+                }
+
+                Console.WriteLine("Press any key to return to the menu...");
+                Console.Read();
+            }
+
+            Console.WriteLine("Goodbye Admin.");
+            Console.WriteLine("Press any key to exit...");
+            Console.Read();
 
         }
 
-        public void PrintMenu()
+        public static void PrintMenu()
         {
             Console.WriteLine("Hello Admin, What Would You Like To Do Today?");
             // List top menu options only
