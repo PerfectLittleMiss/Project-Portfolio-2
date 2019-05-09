@@ -16,12 +16,14 @@ namespace KinaoleLau_ConvertedData
             //Output Location
             //string _directory = @"../../output/";
 
+            // Set program running variable to true as long as user is using the program
             bool running = true;
 
             while(running)
             {
                 PrintMenu();
 
+                // Gets input and validates the input isn't null or whitespace then converts the input to lowercase
                 string choice = Validation.GetString("Choose an option: ").ToLower();
 
                 switch(choice)
@@ -59,11 +61,11 @@ namespace KinaoleLau_ConvertedData
                         running = false;
                         break;
                 }
-
+                // Wait for user input to return to the menu
                 Console.WriteLine("Press any key to return to the menu...");
                 Console.Read();
             }
-
+            // Bid user goodbye and wait for user input to exit
             Console.WriteLine("Goodbye Admin.");
             Console.WriteLine("Press any key to exit...");
             Console.Read();
@@ -72,6 +74,9 @@ namespace KinaoleLau_ConvertedData
 
         public static void PrintMenu()
         {
+            // Clear console for neat look
+            Console.Clear();
+
             Console.WriteLine("Hello Admin, What Would You Like To Do Today?");
             // List top menu options only
             Console.WriteLine("\n[1] Convert the restaurant reviews database from SQL to JSON");
