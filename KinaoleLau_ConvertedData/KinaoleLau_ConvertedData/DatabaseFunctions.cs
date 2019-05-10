@@ -32,7 +32,7 @@ namespace KinaoleLau_ConvertedData
             return conString;
         }
 
-        public Dictionary<int, Dictionary<string, string>> GetRestaurantProfilesDBInfo()
+        public static Dictionary<int, Dictionary<string, string>> GetRestaurantProfilesDBInfo()
         {
             //Empty dictionary to hold the row number as the key and the column name and value for that row as the value
             // Values will be converted back later
@@ -90,7 +90,7 @@ namespace KinaoleLau_ConvertedData
             return DBInfo;
         }
 
-        public Dictionary<int, Dictionary<string, string>> GetRestaurantReviewersDBInfo()
+        public static Dictionary<int, Dictionary<string, string>> GetRestaurantReviewersDBInfo()
         {
             //Empty dictionary to hold the row number as the key and the column name and value for that row as the value
             // Values will be converted back later
@@ -149,7 +149,7 @@ namespace KinaoleLau_ConvertedData
             return DBInfo;
         }
 
-        public Dictionary<int, Dictionary<string, string>> GetRestaurantReviewsDBInfo()
+        public static Dictionary<int, Dictionary<string, string>> GetRestaurantReviewsDBInfo()
         {
             //Empty dictionary to hold the row number as the key and the column name and value for that row as the value
             // Values will be converted back later

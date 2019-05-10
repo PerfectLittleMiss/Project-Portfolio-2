@@ -33,6 +33,22 @@ namespace KinaoleLau_ConvertedData
 
             using (StreamWriter sw = File.AppendText(jsonFilePath))
             {
+                List<string> tableOneInfo = SqlToJson(DatabaseFunctions.GetRestaurantProfilesDBInfo());
+                List<string> tableTwoInfo = SqlToJson(DatabaseFunctions.GetRestaurantReviewersDBInfo());
+                List<string> tableThreeInfo = SqlToJson(DatabaseFunctions.GetRestaurantReviewsDBInfo());
+
+                foreach(string line in tableOneInfo)
+                {
+                    sw.WriteLine(line);
+                }
+                foreach (string line in tableTwoInfo)
+                {
+                    sw.WriteLine(line);
+                }
+                foreach (string line in tableThreeInfo)
+                {
+                    sw.WriteLine(line);
+                }
                 
             }
         }
