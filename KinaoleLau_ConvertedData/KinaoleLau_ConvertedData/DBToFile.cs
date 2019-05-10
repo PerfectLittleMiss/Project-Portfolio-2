@@ -37,14 +37,81 @@ namespace KinaoleLau_ConvertedData
             }
         }
 
-        private string SqlToJson(Dictionary<int ,Dictionary<string, string>> dbTable)
+        private List<string> SqlToJson(Dictionary<int ,Dictionary<string, string>> dbTable)
         {
-            string jsonString = "[\n";
-            
+            // Start of string list that will contain the json for one table
+            // [ indicates beginning of an array and \n indicates new line
+            List<string> jsonString = new List<string>();
+            jsonString.Add("[");
+
+            // Loop through rows in database table
             foreach (int key in dbTable.Keys)
             {
+                // { indicates start of json object
+                jsonString.Add("{");
 
+                // Saves the current database containing the row data in the table to a new dictionary
+                Dictionary<string, string> colNamesAndValues = dbTable[key];
+
+                // Create index to keep track of where the end of the dictionary is
+                int index = 1;
+
+                // Loop through the dictionary containg the row data
+                foreach (string colName in colNamesAndValues.Keys)
+                {
+                    // Create a string to hold field name and value in one line to add to string list
+                    // Add an indent before each field for formatting
+                    string colString = "\t";
+
+                    // Check if value is an int, a decimal, or a string and convert to correct datatype
+                    string colValue = colNamesAndValues[colName];
+                    int colValueInt;
+                    decimal colValueDecimal;
+
+                    if (int.TryParse(colValue, out colValueInt))
+                    {
+                        colString += $"\"{colName}\":{colValueInt}";
+                    }
+                    else if (decimal.TryParse(colValue, out colValueDecimal))
+                    {
+                        colString += $"\"{colName}\":{colValueDecimal}";
+                    }
+                    else
+                    {
+                        colString += $"\"{colName}\":\"{colValue}\"";
+                    }
+
+                    // If the current item index is less than the count it is not the last item so add a comma
+                    if (index < colNamesAndValues.Count)
+                    {
+                        colString += ",";
+                    }
+                    // The current item is the last item so don't add a comma
+
+                    // Add the string containing the current field name and value to the list
+                    jsonString.Add(colString);
+
+                    index++;
+                }
+
+                // Check if this row is the last or not
+                if (key + 1 < dbTable.Count)
+                {
+                    // This is not the last row so add a comma
+                    jsonString.Add("},");
+                }
+                else
+                {
+                    // This is the last row so don't add a comma
+                    jsonString.Add("}");
+                }
             }
+
+            // This is the end of the data in this table so close the array
+            jsonString.Add("]");
+
+            // Return the entire string
+            return jsonString;
         }
     }
 }
