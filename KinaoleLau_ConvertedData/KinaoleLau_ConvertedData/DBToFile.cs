@@ -14,7 +14,7 @@ namespace KinaoleLau_ConvertedData
         //Output Location
         //string _directory = @"../../output/";
 
-        public string OutputJsonToFile()
+        public void OutputJsonToFile()
         {
             // Save the output path in a string
             string outputPath = @"../../Output";

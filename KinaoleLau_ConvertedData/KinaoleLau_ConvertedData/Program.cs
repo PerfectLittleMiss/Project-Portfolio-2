@@ -31,7 +31,8 @@ namespace KinaoleLau_ConvertedData
                     case "1":
                     case "convert the restaurant reviews database from sql to json":
                     case "convert":
-
+                        DBToFile.OutputJsonToFile();
+                        Console.WriteLine("The database has been converted to json and written to the file.");
                         break;
 
                     case "2":
