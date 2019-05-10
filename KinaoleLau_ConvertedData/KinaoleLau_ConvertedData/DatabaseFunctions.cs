@@ -16,7 +16,7 @@ namespace KinaoleLau_ConvertedData
         //Output Location
         //string _directory = @"../../output/";
 
-        private string GetConnString()
+        private static string GetConnString()
         {
             //Empty until imported from fle
             string ip = "";
@@ -41,7 +41,8 @@ namespace KinaoleLau_ConvertedData
             // Use try catch to connect to database, get data into datatable and save data to dictionary
             try
             {
-                MySqlConnection conn = null;
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = GetConnString();
                 conn.Open();
                 
                 string stm = "Select * from RestaurantProfiles";
@@ -99,11 +100,11 @@ namespace KinaoleLau_ConvertedData
             // Use try catch to connect to database, get data into datatable and save data to dictionary
             try
             {
-                MySqlConnection conn = null;
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = GetConnString();
                 conn.Open();
 
-                string stm = "Select * from RestaurantReviewers" +
-                    "";
+                string stm = "Select * from RestaurantReviewers";
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter(stm, conn);
                 DataTable dbInfo = new DataTable();
@@ -158,7 +159,8 @@ namespace KinaoleLau_ConvertedData
             // Use try catch to connect to database, get data into datatable and save data to dictionary
             try
             {
-                MySqlConnection conn = null;
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = GetConnString();
                 conn.Open();
 
                 string stm = "Select * from RestaurantReviews";

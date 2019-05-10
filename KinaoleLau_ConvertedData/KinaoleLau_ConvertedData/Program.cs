@@ -33,44 +33,53 @@ namespace KinaoleLau_ConvertedData
                     case "convert":
                         DBToFile.OutputJsonToFile();
                         Console.WriteLine("The database has been converted to json and written to the file.");
+                        Pause();
                         break;
 
                     case "2":
                     case "showcase our 5 star rating system":
                     case "showcase rating system":
                         Console.WriteLine("Option not available yet.");
-
+                        Pause();
                         break;
 
                     case "3":
                     case "showcase our animated bar graph review system":
                     case "showcase review system":
                         Console.WriteLine("Option not available yet.");
-
+                        Pause();
                         break;
 
                     case "4":
                     case "play a card game":
                     case "play game":
                         Console.WriteLine("Option not available yet.");
-
+                        Pause();
                         break;
 
                     case "5":
                     case "exit":
                     case "quit":
                         running = false;
+                        // Bid user goodbye and wait for user input to exit
+                        Console.WriteLine("Goodbye Admin.");
+                        Console.WriteLine("Press any key to exit...");
+                        Console.ReadKey();
+                        break;
+
+                    default:
+                        Console.WriteLine("That is an invalid command.");
+                        Pause();
                         break;
                 }
-                // Wait for user input to return to the menu
-                Console.WriteLine("Press any key to return to the menu...");
-                Console.Read();
             }
-            // Bid user goodbye and wait for user input to exit
-            Console.WriteLine("Goodbye Admin.");
-            Console.WriteLine("Press any key to exit...");
-            Console.Read();
+        }
 
+        public static void Pause()
+        {
+            // Wait for user input to return to the menu
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadKey();
         }
 
         public static void PrintMenu()
