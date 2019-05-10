@@ -21,10 +21,10 @@ namespace KinaoleLau_ConvertedData
             // Create output directory if it doesn't exist
             Directory.CreateDirectory(outputPath);
             // Create path for file with filename and save to string
-            string jsonFilePath = Path.Combine(outputPath, "KinaoleLau_ConvertedData.json");
+            string jsonFilePath = Path.Combine(outputPath, "KinaoleLau_ConvertedData-" + DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH'-'mm") + ".json");
 
-            // Create file or overwrite file if exists at file path and write current date and time
-            File.WriteAllText(jsonFilePath, "### " + DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH':'mm") + " ###");
+            // Create file or overwrite file if exists at file path
+            File.WriteAllText(jsonFilePath, "");
 
             // Tell user the file was created, the file name, and the file location
             Console.WriteLine("The file was created!");
@@ -42,19 +42,29 @@ namespace KinaoleLau_ConvertedData
             // Write the string lists to the file
             using (StreamWriter sw = File.AppendText(jsonFilePath))
             {
+                // Create large array to hold table arrays
+                sw.WriteLine("[");
+
                 foreach(string line in tableOneInfo)
                 {
                     sw.WriteLine(line);
                 }
+                // Include comma to separate arrays within array
+                sw.Write(",");
+
                 foreach (string line in tableTwoInfo)
                 {
                     sw.WriteLine(line);
                 }
+                // Include comma to separate arrays within array
+                sw.Write(",");
+
                 foreach (string line in tableThreeInfo)
                 {
                     sw.WriteLine(line);
                 }
-                
+
+                sw.WriteLine("]");
             }
         }
 

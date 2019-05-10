@@ -1,4 +1,5 @@
-### 2019-05-09 18:01 ###[
+[
+[
 {
 	"id":1,
 	"RestaurantName":"1770 House",
@@ -1600,7 +1601,7 @@
 	"OverallPossibleRating":5.00
 }
 ]
-[
+,[
 {
 	"id":1,
 	"Username":"bmacdonald",
@@ -2602,7 +2603,7 @@
 	"ReviewerRating":""
 }
 ]
-[
+,[
 {
 	"id":0,
 	"RestaurantId":38,
@@ -82603,4 +82604,5 @@
 	"ReviewText":"Average",
 	"ReviewColor":"Yellow"
 }
+]
 ]
