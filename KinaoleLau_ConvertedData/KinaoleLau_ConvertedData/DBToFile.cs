@@ -14,7 +14,7 @@ namespace KinaoleLau_ConvertedData
         //Output Location
         //string _directory = @"../../output/";
 
-        public void OutputJsonToFile()
+        public static void OutputJsonToFile()
         {
             // Save the output path in a string
             string outputPath = @"../../Output";
@@ -31,12 +31,17 @@ namespace KinaoleLau_ConvertedData
             Console.WriteLine($"File Name: {Path.GetFileName(jsonFilePath)}");
             Console.WriteLine($"File Saved To: {Path.GetDirectoryName(jsonFilePath)}");
 
+            // Create a class instnace to access the non static function sqltojson
+            DBToFile instance = new DBToFile();
+
+            // Save the output of the sqltojson function for each db table into a string list
+            List<string> tableOneInfo = instance.SqlToJson(DatabaseFunctions.GetRestaurantProfilesDBInfo());
+            List<string> tableTwoInfo = instance.SqlToJson(DatabaseFunctions.GetRestaurantReviewersDBInfo());
+            List<string> tableThreeInfo = instance.SqlToJson(DatabaseFunctions.GetRestaurantReviewsDBInfo());
+
+            // Write the string lists to the file
             using (StreamWriter sw = File.AppendText(jsonFilePath))
             {
-                List<string> tableOneInfo = SqlToJson(DatabaseFunctions.GetRestaurantProfilesDBInfo());
-                List<string> tableTwoInfo = SqlToJson(DatabaseFunctions.GetRestaurantReviewersDBInfo());
-                List<string> tableThreeInfo = SqlToJson(DatabaseFunctions.GetRestaurantReviewsDBInfo());
-
                 foreach(string line in tableOneInfo)
                 {
                     sw.WriteLine(line);
