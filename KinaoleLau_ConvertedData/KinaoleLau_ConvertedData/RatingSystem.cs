@@ -79,9 +79,23 @@ namespace KinaoleLau_ConvertedData
             foreach (KeyValuePair<string, List<int>> restaurant in unsorted.OrderBy(key => key.Key))
             {
                 List<int> values = restaurant.Value;
-                // Save the stars and star fragments to variables
-                int stars = values[0];
-                int starFragments = values[1];
+
+                int stars;
+                int starFragments;
+
+                // Continuation of workaround
+                if(values.Count > 1)
+                {
+                    // Save the stars and star fragments to variables
+                    stars = values[0];
+                    starFragments = values[1];
+                }
+                else
+                {
+                    stars = 0;
+                    starFragments = 0;
+                }
+                
 
                 string rating = "Rating: ";
 
@@ -139,7 +153,7 @@ namespace KinaoleLau_ConvertedData
                 List<int> starValues;
 
                 // Workaround for if restaurant has 0 ratings
-                if (ratings.Count <= 0)
+                if (ratings.Count > 0)
                 {
                     // Create a variable to hold the sum of the rating for each restaurant
                     int sum = 0;
