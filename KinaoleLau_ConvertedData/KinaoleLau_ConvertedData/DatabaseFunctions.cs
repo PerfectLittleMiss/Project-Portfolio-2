@@ -32,6 +32,47 @@ namespace KinaoleLau_ConvertedData
             return conString;
         }
 
+        public static Dictionary<string, int> GetRestaurantRatings()
+        {
+            //Empty dictionary to hold the restaurant name and the rating
+            Dictionary<string, int> namesAndRatings = new Dictionary<string, int>();
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection();
+                conn.ConnectionString = GetConnString();
+                conn.Open();
+
+                string stm = "Select RestaurantName, ReviewScore from RestaurantReviews Join RestaurantProfiles On RestaurantReviews.RestaurantId = RestaurantProfiles.id";
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(stm, conn);
+                DataTable dbInfo = new DataTable();
+
+                adapter.SelectCommand.CommandType = CommandType.Text;
+                adapter.Fill(dbInfo);
+
+                foreach (DataRow row in dbInfo.Rows)
+                {
+                    string name = row["RestaurantName"].ToString();
+                    string ratingString = row["ReviewScore"].ToString();
+                    int rating = int.Parse(ratingString);
+
+                    namesAndRatings.Add(name, rating);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+
+            return namesAndRatings;
+        }
+
         public static Dictionary<int, Dictionary<string, string>> GetRestaurantProfilesDBInfo()
         {
             //Empty dictionary to hold the row number as the key and the column name and value for that row as the value
