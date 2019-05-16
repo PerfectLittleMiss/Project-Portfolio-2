@@ -136,30 +136,41 @@ namespace KinaoleLau_ConvertedData
                 // Create a list to hold the list for each restaurant
                 List<int> ratings = namesAndTotals[name];
 
-                // Create a variable to hold the sum of the rating for each restaurant
-                int sum = 0;
-                // Create a variable to keep track of the number of ratings
-                int count = 0;
+                List<int> starValues;
 
-                foreach (int rating in ratings)
+                // Workaround for if restaurant has 0 ratings
+                if (ratings.Count <= 0)
                 {
-                    sum += rating;
-                    count++;
+                    // Create a variable to hold the sum of the rating for each restaurant
+                    int sum = 0;
+                    // Create a variable to keep track of the number of ratings
+                    int count = 0;
+
+                    foreach (int rating in ratings)
+                    {
+                        sum += rating;
+                        count++;
+                    }
+
+                    // Create a variable to hold the average of the ratings
+                    decimal average = sum / count;
+
+                    // Create a variable to hold the average of 5
+                    decimal averageOf5 = (average / 100) * 5;
+
+                    // Find the number of total stars (whole numbers)
+                    int stars = Convert.ToInt32(Math.Floor(averageOf5));
+
+                    // Find the remaining star fragments (decimal) and convert to a whole number
+                    int remaining = decimal.ToInt32((averageOf5 - stars) * 100);
+
+                    starValues = GetStars(remaining, stars);
                 }
-
-                // Create a variable to hold the average of the ratings
-                decimal average = sum / count;
-
-                // Create a variable to hold the average of 5
-                decimal averageOf5 = (average / 100) * 5;
-
-                // Find the number of total stars (whole numbers)
-                int stars = Convert.ToInt32(Math.Floor(averageOf5));
-
-                // Find the remaining star fragments (decimal) and convert to a whole number
-                int remaining = decimal.ToInt32((averageOf5 - stars) * 100);
-
-                List<int> starValues = GetStars(remaining, stars);
+                else
+                {
+                    starValues = new List<int>();
+                    starValues.Add(0);
+                }
 
                 // Add the name and the star value to the restaurant ratings dictionary
                 restaurantRatings.Add(name, starValues);
