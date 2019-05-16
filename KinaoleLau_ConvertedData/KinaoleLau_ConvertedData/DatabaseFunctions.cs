@@ -32,33 +32,51 @@ namespace KinaoleLau_ConvertedData
             return conString;
         }
 
-        public static Dictionary<string, int> GetRestaurantRatings()
+        public static Dictionary<int, Dictionary<string, int?>> GetRestaurantRatings()
         {
-            //Empty dictionary to hold the restaurant name and the rating
-            Dictionary<string, int> namesAndRatings = new Dictionary<string, int>();
+            //Empty dictionary to hold the index/id, restaurant name, and the rating
+            Dictionary<int, Dictionary<string, int?>> namesAndRatings = new Dictionary<int, Dictionary<string, int?>>();
 
             // Use try catch to connect to database, get data into datatable and save data to dictionary
             try
             {
-                MySqlConnection conn = new MySqlConnection();
-                conn.ConnectionString = GetConnString();
+                MySqlConnection conn = new MySqlConnection(GetConnString());
                 conn.Open();
+
+                MySqlDataReader rdr = null;
 
                 string stm = "Select RestaurantName, ReviewScore from RestaurantReviews Join RestaurantProfiles On RestaurantReviews.RestaurantId = RestaurantProfiles.id";
 
-                MySqlDataAdapter adapter = new MySqlDataAdapter(stm, conn);
-                DataTable dbInfo = new DataTable();
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                rdr = cmd.ExecuteReader();
 
-                adapter.SelectCommand.CommandType = CommandType.Text;
-                adapter.Fill(dbInfo);
-
-                foreach (DataRow row in dbInfo.Rows)
+                int index = 0;
+                while(rdr.Read())
                 {
-                    string name = row["RestaurantName"].ToString();
-                    string ratingString = row["ReviewScore"].ToString();
-                    int rating = int.Parse(ratingString);
+                    // Create a dictionary for the row info
+                    Dictionary<string, int?> rowInfo = new Dictionary<string, int?>();
 
-                    namesAndRatings.Add(name, rating);
+                    // Save row data into variables
+                    // Parse rating data into an int
+                    // Add name and rating of each row to the dictionary
+                    string name = rdr["RestaurantName"].ToString();
+                    string ratingString = rdr["ReviewScore"].ToString();
+
+                    int? rating;
+
+                    // Check that the rating value isn't null
+                    if(string.IsNullOrWhiteSpace(ratingString))
+                    {
+                        rating = null;
+                    }
+                    else
+                    {
+                        rating = Convert.ToInt32(ratingString);
+                    }
+
+                    rowInfo.Add(name, rating);
+                    namesAndRatings.Add(index, rowInfo);
+                    index++;
                 }
 
                 conn.Close();

@@ -39,8 +39,7 @@ namespace KinaoleLau_ConvertedData
                     case "2":
                     case "showcase our 5 star rating system":
                     case "showcase rating system":
-                        Console.WriteLine("Option not available yet.");
-                        Pause();
+                        RatingSystem.RatingProgram();
                         break;
 
                     case "3":

@@ -64,6 +64,7 @@
     <Compile Include="DBToFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatingSystem.cs" />
     <Compile Include="Validation.cs" />
   </ItemGroup>
   <ItemGroup>
