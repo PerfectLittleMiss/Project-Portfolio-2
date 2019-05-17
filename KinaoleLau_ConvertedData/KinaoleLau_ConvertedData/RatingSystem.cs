@@ -56,7 +56,7 @@ namespace KinaoleLau_ConvertedData
                     case "5":
                     case "show only x and up":
                     case "show only":
-
+                        ShowOnlyMenu();
                         break;
 
                     case "6":
@@ -73,6 +73,181 @@ namespace KinaoleLau_ConvertedData
                         break;
                 }
             }
+        }
+
+        private static void ShowOnlyMenu()
+        {
+            // bool to determine if user is still on menu
+            bool running = true;
+
+            while(running)
+            {
+                ShowOnlyCommands();
+                string choice = Validation.GetString("Enter your choice: ").ToLower();
+
+                switch(choice)
+                {
+                    case "1":
+                    case "show the best":
+                    case "best":
+                        ShowBest();
+                        Console.WriteLine("Press any key to return to the Show Only menu...");
+                        Console.ReadKey();
+                        break;
+
+                    case "2":
+                    case "show 4 stars and up":
+                    case "show 4":
+                        Show4AndUp();
+                        Console.WriteLine("Press any key to return to the Show Only menu...");
+                        Console.ReadKey();
+                        break;
+
+                    case "3":
+                    case "show 3 stars and up":
+                    case "show 3":
+                        Show3AndUp();
+                        Console.WriteLine("Press any key to return to the Show Only menu...");
+                        Console.ReadKey();
+                        break;
+
+                    case "4":
+                    case "show the worst":
+                    case "worst":
+                        ShowWorst();
+                        Console.WriteLine("Press any key to return to the Show Only menu...");
+                        Console.ReadKey();
+                        break;
+
+                    case "5":
+                    case "show unrated":
+                    case "unrated":
+                        ShowUnrated();
+                        Console.WriteLine("Press any key to return to the Show Only menu...");
+                        Console.ReadKey();
+                        break;
+
+                    case "6":
+                    case "back":
+                    case "exit":
+                        running = false;
+                        Console.WriteLine("Press any key to return to the rating system menu...");
+                        Console.ReadKey();
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid command. Press any key to continue...");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+
+        private static void ShowUnrated()
+        {
+            Dictionary<string, decimal?> restaurants = GetRestaurantRatingStrings();
+
+            Console.WriteLine("Unrated".PadLeft(40, ' '));
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, decimal?> restaurant in restaurants.OrderBy(value => value.Value))
+            {
+                if (restaurant.Value == null)
+                {
+                    Console.WriteLine(restaurant.Key);
+                }
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static void ShowWorst()
+        {
+            Dictionary<string, decimal?> restaurants = GetRestaurantRatingStrings();
+
+            Console.WriteLine("The Worst (1 Stars)".PadLeft(40, ' '));
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, decimal?> restaurant in restaurants.OrderBy(value => value.Value))
+            {
+                if (restaurant.Value <= 1)
+                {
+                    Console.WriteLine(restaurant.Key);
+                }
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static void Show3AndUp()
+        {
+            Dictionary<string, decimal?> restaurants = GetRestaurantRatingStrings();
+
+            Console.WriteLine("3 Stars and Up".PadLeft(40, ' '));
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, decimal?> restaurant in restaurants.OrderBy(value => value.Value))
+            {
+                if (restaurant.Value >= 3)
+                {
+                    Console.WriteLine(restaurant.Key);
+                }
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static void Show4AndUp()
+        {
+            Dictionary<string, decimal?> restaurants = GetRestaurantRatingStrings();
+
+            Console.WriteLine("4 Stars and Up".PadLeft(40, ' '));
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, decimal?> restaurant in restaurants.OrderBy(value => value.Value))
+            {
+                if (restaurant.Value >= 4)
+                {
+                    Console.WriteLine(restaurant.Key);
+                }
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static void ShowBest()
+        {
+            Dictionary<string, decimal?> restaurants = GetRestaurantRatingStrings();
+
+            Console.WriteLine("The Best (5 Stars)".PadLeft(40, ' '));
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, decimal?> restaurant in restaurants.OrderBy(value => value.Value))
+            {
+                if(restaurant.Value >= 5)
+                {
+                    Console.WriteLine(restaurant.Key);
+                }
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static void ShowOnlyCommands()
+        {
+            Console.Clear();
+
+            Console.WriteLine("-- [1] Show the Best (5 Stars)");
+            Console.WriteLine("-- [2] Show 4 Stars and Up");
+            Console.WriteLine("-- [3] Show 3 Stars and Up");
+            Console.WriteLine("-- [4] Show the Worst (1 Stars)");
+            Console.WriteLine("-- [5] Show Unrated");
+            Console.WriteLine("-- [6] Back");
         }
 
         private static void SortWorstToBest()
