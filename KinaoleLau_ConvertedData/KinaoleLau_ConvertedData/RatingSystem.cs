@@ -32,7 +32,7 @@ namespace KinaoleLau_ConvertedData
                     case "2":
                     case "list restaurants in reverse alphabetical":
                     case "list in reverse alphabetical":
-
+                        ListReverseAlphbetical();
                         Console.WriteLine("Press any key to the rating menu...");
                         Console.ReadKey();
                         break;
@@ -40,7 +40,7 @@ namespace KinaoleLau_ConvertedData
                     case "3":
                     case "sort restaurants from best to worst":
                     case "sort best to worst":
-
+                        SortBestToWorst();
                         Console.WriteLine("Press any key to the rating menu...");
                         Console.ReadKey();
                         break;
@@ -48,7 +48,7 @@ namespace KinaoleLau_ConvertedData
                     case "4":
                     case "sort restaurants from worst to best":
                     case "sort worst to best":
-
+                        SortWorstToBest();
                         Console.WriteLine("Press any key to the rating menu...");
                         Console.ReadKey();
                         break;
@@ -66,8 +66,106 @@ namespace KinaoleLau_ConvertedData
                         Console.WriteLine("Press any key to return to the main menu...");
                         Console.ReadKey();
                         break;
+
+                    default:
+                        Console.WriteLine("This is an invalid command. Press any key to continue...");
+                        Console.ReadKey();
+                        break;
                 }
             }
+        }
+
+        private static void SortWorstToBest()
+        {
+            Dictionary<string, decimal?> restaurants = GetRestaurantRatingStrings();
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, decimal?> restaurant in restaurants.OrderBy(value => value.Value))
+            {
+                Console.WriteLine(restaurant.Key);
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static void SortBestToWorst()
+        {
+            Dictionary<string, decimal?> restaurants = GetRestaurantRatingStrings();
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, decimal?> restaurant in restaurants.OrderByDescending(value => value.Value))
+            {
+                Console.WriteLine(restaurant.Key);
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static void ListReverseAlphbetical()
+        {
+            // Create a dictionary to hold the unsorted restaurant ratings
+            Dictionary<string, List<int?>> unsorted = GetRestaurantRatings();
+
+            Console.WriteLine("".PadRight(85, '_'));
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, List<int?>> restaurant in unsorted.OrderByDescending(key => key.Key))
+            {
+                List<int?> values = restaurant.Value;
+
+                int? stars;
+                int? starFragments;
+
+                // Save the stars and star fragments to variables
+                stars = values[0];
+                starFragments = values[1];
+
+                string rating = "Rating: ";
+
+                string ofStars;
+
+                int wordLength = rating.Count();
+
+                // Convert remainder into a fraction
+                string fragments = "";
+                if (starFragments > 0)
+                {
+                    switch (starFragments)
+                    {
+                        case 25:
+                            fragments = "1/4";
+                            break;
+
+                        case 50:
+                            fragments = "1/2";
+                            break;
+
+                        case 75:
+                            fragments = "3/4";
+                            break;
+                    }
+                    ofStars = rating.PadRight(wordLength + stars.Value, '*') + fragments + " of 5 stars";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
+                }
+                else if (stars == 0)
+                {
+                    ofStars = "Rating: 0 of 5 stars";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
+                }
+                else if (stars == null && starFragments == null)
+                {
+                    ofStars = "No Rating Available";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
+                }
+                else
+                {
+                    ofStars = rating.PadRight(wordLength + stars.Value, '*') + " of 5 stars";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
+                }
+            }
+            Console.WriteLine("".PadRight(85, '_'));
         }
 
         private static void ListAlphbetically()
@@ -172,6 +270,89 @@ namespace KinaoleLau_ConvertedData
             }
 
             return restaurantRatings;
+        }
+
+        private static Dictionary<string, decimal?> GetRestaurantRatingStrings()
+        {
+            // Create a dictionary to hold the unsorted restaurant ratings
+            Dictionary<string, List<int?>> unsorted = GetRestaurantRatings();
+
+            // Create a dictionary to hold the restaurant names, ratings, and output strings
+            Dictionary<string, decimal?> restaurantStrings = new Dictionary<string, decimal?>();
+
+            // Loop through the sorted restaurants
+            foreach (KeyValuePair<string, List<int?>> restaurant in unsorted)
+            {
+                string output;
+
+                List<int?> values = restaurant.Value;
+
+                int? stars;
+                int? starFragments;
+
+                // Save the stars and star fragments to variables
+                stars = values[0];
+                starFragments = values[1];
+
+                string rating = "Rating: ";
+
+                string ofStars;
+
+                int wordLength = rating.Count();
+
+                // Convert remainder into a fraction
+                string fragments = "";
+                if (starFragments > 0)
+                {
+                    switch (starFragments)
+                    {
+                        case 25:
+                            fragments = "1/4";
+                            break;
+
+                        case 50:
+                            fragments = "1/2";
+                            break;
+
+                        case 75:
+                            fragments = "3/4";
+                            break;
+                    }
+                    ofStars = rating.PadRight(wordLength + stars.Value, '*') + fragments + " of 5 stars";
+                    output = $"| Restaurant: {restaurant.Key.PadRight(40, ' ')}| {ofStars.PadRight(27, ' ')} |";
+                }
+                else if (stars == 0)
+                {
+                    ofStars = "Rating: 0 of 5 stars";
+                    output = $"| Restaurant: {restaurant.Key.PadRight(40, ' ')}| {ofStars.PadRight(27, ' ')} |";
+                }
+                else if (stars == null && starFragments == null)
+                {
+                    ofStars = "No Rating Available";
+                    output = $"| Restaurant: {restaurant.Key.PadRight(40, ' ')}| {ofStars.PadRight(27, ' ')} |";
+                }
+                else
+                {
+                    ofStars = rating.PadRight(wordLength + stars.Value, '*') + " of 5 stars";
+                    output = $"| Restaurant: {restaurant.Key.PadRight(40, ' ')}| {ofStars.PadRight(27, ' ')} |";
+                }
+
+                decimal? ratingTotal;
+
+                // Check if rating is null
+                if (stars == null)
+                {
+                    ratingTotal = null;
+                }
+                else
+                {
+                    ratingTotal = (decimal)stars.Value + ((decimal)starFragments / 100m);
+                }
+                
+
+                restaurantStrings.Add(output, ratingTotal);
+            }
+            return restaurantStrings;
         }
 
         private static List<int?> GetStars(int? remaining, int? stars)
