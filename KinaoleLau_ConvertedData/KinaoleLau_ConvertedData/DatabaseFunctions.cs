@@ -32,10 +32,10 @@ namespace KinaoleLau_ConvertedData
             return conString;
         }
 
-        public static Dictionary<int, Dictionary<string, int?>> GetRestaurantRatings()
+        public static Dictionary<string, decimal?> GetRestaurantRatings()
         {
             //Empty dictionary to hold the index/id, restaurant name, and the rating
-            Dictionary<int, Dictionary<string, int?>> namesAndRatings = new Dictionary<int, Dictionary<string, int?>>();
+            Dictionary<string, decimal?> namesAndRatings = new Dictionary<string, decimal?>();
 
             // Use try catch to connect to database, get data into datatable and save data to dictionary
             try
@@ -45,7 +45,7 @@ namespace KinaoleLau_ConvertedData
 
                 MySqlDataReader rdr = null;
 
-                string stm = "Select RestaurantName, ReviewScore from RestaurantReviews Join RestaurantProfiles On RestaurantReviews.RestaurantId = RestaurantProfiles.id";
+                string stm = "Select RestaurantName, OverallRating from RestaurantProfiles";
 
                 MySqlCommand cmd = new MySqlCommand(stm, conn);
                 rdr = cmd.ExecuteReader();
@@ -53,16 +53,13 @@ namespace KinaoleLau_ConvertedData
                 int index = 0;
                 while(rdr.Read())
                 {
-                    // Create a dictionary for the row info
-                    Dictionary<string, int?> rowInfo = new Dictionary<string, int?>();
-
                     // Save row data into variables
                     // Parse rating data into an int
                     // Add name and rating of each row to the dictionary
                     string name = rdr["RestaurantName"].ToString();
-                    string ratingString = rdr["ReviewScore"].ToString();
+                    string ratingString = rdr["OverallRating"].ToString();
 
-                    int? rating;
+                    decimal? rating;
 
                     // Check that the rating value isn't null
                     if(string.IsNullOrWhiteSpace(ratingString))
@@ -71,11 +68,10 @@ namespace KinaoleLau_ConvertedData
                     }
                     else
                     {
-                        rating = Convert.ToInt32(ratingString);
+                        rating = Convert.ToDecimal(ratingString);
                     }
 
-                    rowInfo.Add(name, rating);
-                    namesAndRatings.Add(index, rowInfo);
+                    namesAndRatings.Add(name, rating);
                     index++;
                 }
 

@@ -73,31 +73,25 @@ namespace KinaoleLau_ConvertedData
         private static void ListAlphbetically()
         {
             // Create a dictionary to hold the unsorted restaurant ratings
-            Dictionary<string, List<int>> unsorted = GetRestaurantRatings();
+            Dictionary<string, List<int?>> unsorted = GetRestaurantRatings();
+
+            Console.WriteLine("".PadRight(85, '_'));
 
             // Loop through the sorted restaurants
-            foreach (KeyValuePair<string, List<int>> restaurant in unsorted.OrderBy(key => key.Key))
+            foreach (KeyValuePair<string, List<int?>> restaurant in unsorted.OrderBy(key => key.Key))
             {
-                List<int> values = restaurant.Value;
+                List<int?> values = restaurant.Value;
 
-                int stars;
-                int starFragments;
+                int? stars;
+                int? starFragments;
 
-                // Continuation of workaround
-                if(values.Count > 1)
-                {
-                    // Save the stars and star fragments to variables
-                    stars = values[0];
-                    starFragments = values[1];
-                }
-                else
-                {
-                    stars = 0;
-                    starFragments = 0;
-                }
-                
+                // Save the stars and star fragments to variables
+                stars = values[0];
+                starFragments = values[1];
 
                 string rating = "Rating: ";
+
+                string ofStars;
 
                 int wordLength = rating.Count();
 
@@ -119,71 +113,58 @@ namespace KinaoleLau_ConvertedData
                             fragments = "3/4";
                             break;
                     }
+                    ofStars = rating.PadRight(wordLength + stars.Value, '*') + fragments + " of 5 stars";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
                 }
-
-                Console.WriteLine("Restaurant: {0} - {1} {2}", restaurant.Key, rating.PadRight(wordLength + stars, '*'), fragments);
-            }
-        }
-
-        private static Dictionary<string, List<int>> GetRestaurantRatings()
-        {
-            // Store the raw data of names and ratings in a dictionary
-            Dictionary<int, Dictionary<string, int?>> namesAndRatings = DatabaseFunctions.GetRestaurantRatings();
-
-            // Create an empty dictionary to hold each restaurant and it's star rating (int = whole stars, double = star fragments)
-            Dictionary<string, List<int>> restaurantRatings = new Dictionary<string, List<int>>();
-
-            // Create a dictionary to hold the name, number of ratings, and total rating of each Restaurant before calculations
-            // The list will contain the ratings converted into a rating out of 5
-            Dictionary<string, List<int>> namesAndTotals = new Dictionary<string, List<int>>();
-
-            // Loop through the data in the dictionary of names and ratings
-            foreach (int id in namesAndRatings.Keys)
-            {
-                // Create a dictionary to hold the row info
-                Dictionary<string, int?> rowInfo = namesAndRatings[id];
-                GetUniqueNames(namesAndTotals, rowInfo);
-            }
-
-            foreach (string name in namesAndTotals.Keys)
-            {
-                // Create a list to hold the list for each restaurant
-                List<int> ratings = namesAndTotals[name];
-
-                List<int> starValues;
-
-                // Workaround for if restaurant has 0 ratings
-                if (ratings.Count > 0)
+                else if (stars == 0)
                 {
-                    // Create a variable to hold the sum of the rating for each restaurant
-                    int sum = 0;
-                    // Create a variable to keep track of the number of ratings
-                    int count = 0;
-
-                    foreach (int rating in ratings)
-                    {
-                        sum += rating;
-                        count++;
-                    }
-
-                    // Create a variable to hold the average of the ratings
-                    decimal average = sum / count;
-
-                    // Create a variable to hold the average of 5
-                    decimal averageOf5 = (average / 100) * 5;
-
-                    // Find the number of total stars (whole numbers)
-                    int stars = Convert.ToInt32(Math.Floor(averageOf5));
-
-                    // Find the remaining star fragments (decimal) and convert to a whole number
-                    int remaining = decimal.ToInt32((averageOf5 - stars) * 100);
-
-                    starValues = GetStars(remaining, stars);
+                    ofStars = "Rating: 0 of 5 stars";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
+                }
+                else if (stars == null && starFragments == null)
+                {
+                    ofStars = "No Rating Available";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
                 }
                 else
                 {
-                    starValues = new List<int>();
-                    starValues.Add(0);
+                    ofStars = rating.PadRight(wordLength + stars.Value, '*') + " of 5 stars";
+                    Console.WriteLine("| Restaurant: {0}| {1} |", restaurant.Key.PadRight(40, ' '), ofStars.PadRight(27, ' '));
+                }
+            }
+            Console.WriteLine("".PadRight(85, '_'));
+        }
+
+        private static Dictionary<string, List<int?>> GetRestaurantRatings()
+        {
+            // Store the raw data of names and ratings in a dictionary
+            Dictionary<string, decimal?> namesAndRatings = DatabaseFunctions.GetRestaurantRatings();
+
+            // Create an empty dictionary to hold each restaurant and it's star rating (int = whole stars, double = star fragments)
+            Dictionary<string, List<int?>> restaurantRatings = new Dictionary<string, List<int?>>();
+            
+
+            foreach (string name in namesAndRatings.Keys)
+            {
+                // Create a list to hold the list for each restaurant
+                decimal? rating = namesAndRatings[name];
+
+                List<int?> starValues = new List<int?>();
+
+                if(rating == null)
+                {
+                    starValues.Add(null);
+                    starValues.Add(null);
+                }
+                else
+                {
+                    // Find the number of total stars (whole numbers)
+                    int stars = Convert.ToInt32(Math.Floor(rating.Value));
+
+                    // Find the remaining star fragments (decimal) and convert to a whole number
+                    int remaining = decimal.ToInt32((rating.Value - stars) * 100);
+
+                    starValues = GetStars(remaining, stars);
                 }
 
                 // Add the name and the star value to the restaurant ratings dictionary
@@ -193,7 +174,7 @@ namespace KinaoleLau_ConvertedData
             return restaurantRatings;
         }
 
-        private static List<int> GetStars(int remaining, int stars)
+        private static List<int?> GetStars(int? remaining, int? stars)
         {
             // Round the remaing to nearest quarter
             int remainingRounded = 0;
@@ -243,7 +224,7 @@ namespace KinaoleLau_ConvertedData
             }
 
             // Create a dictionary to hold the stars and remainingRounded values
-            List<int> starValue = new List<int>();
+            List<int?> starValue = new List<int?>();
 
             starValue.Add(stars);
             starValue.Add(remainingRounded);
