@@ -10,6 +10,83 @@ namespace KinaoleLau_TimeTrackerApp
 {
     class DatabaseFunctions
     {
+        public static Dictionary<string, int> GetDatesAndDays()
+        {
+            // Create empty dictionary to hold the dates and corresponding month day
+            Dictionary<string, int> datesAndDays = new Dictionary<string, int>();
+
+            // Use try catch to connect to database, get and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select calendar_date, calendar_date_id from tracked_calendar_dates";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each date and day into the list
+                    string date = rdr["calendar_date"].ToString();
+                    string dayString = rdr["calendar_date_id"].ToString();
+                    int day = int.Parse(dayString);
+
+
+                    datesAndDays.Add(date, day);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return datesAndDays;
+        }
+
+        public static List<string> GetDescriptions()
+        {
+            // Create empty list to hold the descriptions
+            List<string> descriptions = new List<string>();
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select activity_description from activity_descriptions";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each activity name into the list
+                    string name = rdr["activity_description"].ToString();
+
+                    descriptions.Add(name);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return descriptions;
+        }
+
         public static List<string> GetCategories()
         {
             // Create empty list to hold the categories
