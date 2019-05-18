@@ -10,6 +10,44 @@ namespace KinaoleLau_TimeTrackerApp
 {
     class DatabaseFunctions
     {
+        public static List<double> GetTimes()
+        {
+            // Create empty list to hold the times
+            List<double> times = new List<double>();
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select time_spent_on_activity from activity_times";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each category name into the list
+                    string timeString = rdr["time_spent_on_activity"].ToString();
+                    double time = double.Parse(timeString);
+
+                    times.Add(time);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return times;
+        }
+
         public static Dictionary<string, int> GetDatesAndDays()
         {
             // Create empty dictionary to hold the dates and corresponding month day
