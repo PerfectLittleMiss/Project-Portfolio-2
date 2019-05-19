@@ -10,6 +10,54 @@ namespace KinaoleLau_TimeTrackerApp
 {
     class DatabaseFunctions
     {
+        public static int Login(string first, string last, string password)
+        {
+            // variables to hold the db values
+            string dbFirst;
+            string dbLast;
+            string dbPassword;
+
+            // variable to hold the user id
+            int userId = 0;
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select * from time_tracker_users";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each category name into the list
+                    dbFirst = rdr["user_firstname"].ToString();
+                    dbLast = rdr["user_lastname"].ToString();
+                    dbPassword = rdr["user_password"].ToString();
+
+                    if(first == dbFirst && last == dbLast && password == dbPassword)
+                    {
+                        string userIdString = rdr["user_id"].ToString();
+                        userId = int.Parse(userIdString);
+                    }
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return userId;
+        }
+
         public static void EnterActivity(int userId, int day, string date, int weekDay, string category, string activity, double time)
         {
             int dateId = GetDateId(date);
