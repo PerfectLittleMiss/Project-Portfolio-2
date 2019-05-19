@@ -17,7 +17,7 @@ namespace KinaoleLau_TimeTrackerApp
 
             while(running)
             {
-                userId = Login(running);
+                //userId = Login(running);
 
                 MainMenu(userId);
             }
@@ -44,7 +44,7 @@ namespace KinaoleLau_TimeTrackerApp
                     case "2":
                     case "view tracked data":
                     case "view data":
-
+                        ViewTrackedData.MainMenu(userId);
                         break;
 
                     case "3":
@@ -81,7 +81,8 @@ namespace KinaoleLau_TimeTrackerApp
 
             while (userId < 1)
             {
-                string choice = Validation.GetString("Enter the number 0 if you wish to skip logging in and exit the program: ");
+                Console.WriteLine("Enter the number 0 if you wish to skip logging in and exit the program: ");
+                string choice = Console.ReadLine();
                 if(choice.Trim() == "0")
                 {
                     running = false;

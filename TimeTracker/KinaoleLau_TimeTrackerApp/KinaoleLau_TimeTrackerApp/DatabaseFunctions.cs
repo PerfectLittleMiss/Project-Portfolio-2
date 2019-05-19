@@ -10,6 +10,167 @@ namespace KinaoleLau_TimeTrackerApp
 {
     class DatabaseFunctions
     {
+        public static List<string> GetActivityDatesForCategory(string activity, string category, int userId)
+        {
+            // Create empty list to hold the activity dates for the given activity and category
+            List<string> dates = new List<string>();
+
+            // Use try catch to connect to database, get and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select tracked_calendar_dates.calendar_date from activity_log join tracked_calendar_dates on activity_log.calendar_date = tracked_calendar_dates.calendar_date_id where activity_log.category_description = @categoryId and activity_log.activity_description = @activityId and user_id = @userId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                int categoryId = GetCategoryId(category);
+                int activityId = GetActivityId(activity);
+
+                cmd.Parameters.AddWithValue("@categoryId", categoryId);
+                cmd.Parameters.AddWithValue("@activityId", activityId);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                rdr = cmd.ExecuteReader();
+
+                while(rdr.Read())
+                {
+                    string date = rdr["tracked_calendar_dates.calendar_date"].ToString();
+
+                    dates.Add(date);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return dates;
+        }
+
+        public static double GetActivityTotalTimeForCategory(string activity, string category, int userId)
+        {
+            // Create double to hold total time of specified activity in specified category
+            double totalTime = 0;
+
+            // Use try catch to connect to database, get and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                string stm = "Select SUM(activity_times.time_spent_on_activity) from activity_log join activity_times on activity_log.time_spent_on_activity = activity_times.activity_time_id where activity_log.category_description = @categoryId and activity_log.activity_description = @activityId and user_id = @userId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                int categoryId = GetCategoryId(category);
+                int activityId = GetActivityId(activity);
+
+                cmd.Parameters.AddWithValue("@categoryId", categoryId);
+                cmd.Parameters.AddWithValue("@activityId", activityId);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                totalTime = (double)cmd.ExecuteScalar();
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return totalTime;
+        }
+
+        public static List<string> GetActivitiesForCategory(string category, int userId)
+        {
+            // Create empty list to hold all activities within given category
+            List<string> activities = new List<string>();
+
+            // Use try catch to connect to database, get and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select activity_descriptions.activity_description from activity_log join activity_descriptions on activity_log.activity_description = activity_descriptions.activity_description_id where category_description = @categoryId and user_id = @userId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                int categoryId = GetCategoryId(category);
+
+                cmd.Parameters.AddWithValue("@categoryId", categoryId);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each date and day into the list
+                    string activity = rdr["activity_descriptions.activity_description"].ToString();
+
+
+                    activities.Add(activity);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return activities;
+        }
+
+        public static string GetDateTrackedTimes(string date, int userId)
+        {
+            // Create empty double to hold sum of tracked times for the given date
+            string trackedTimes = null;
+
+            // Use try catch to connect to database, get and save data to double
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                string stm = "Select SUM(activity_times.time_spent_on_activity) from activity_log Join activity_times on activity_log.time_spent_on_activity = activity_times.activity_time_id Where activity_log.calendar_date = @dateId and user_id = @userId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                //Get date id of date
+                int dateId = GetDateId(date);
+
+                cmd.Parameters.AddWithValue("@dateId", dateId);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while(rdr.Read())
+                {
+                    trackedTimes = rdr[0].ToString();
+                }
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return trackedTimes;
+        }
+
         public static int Login(string first, string last, string password)
         {
             // variables to hold the db values
@@ -314,6 +475,7 @@ namespace KinaoleLau_TimeTrackerApp
                 {
                     // Save each date and day into the list
                     string date = rdr["calendar_date"].ToString();
+                    date = date.Substring(0, date.IndexOf(" "));
                     string dayString = rdr["calendar_date_id"].ToString();
                     int day = int.Parse(dayString);
 
