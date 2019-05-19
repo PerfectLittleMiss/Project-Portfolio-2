@@ -10,6 +10,202 @@ namespace KinaoleLau_TimeTrackerApp
 {
     class DatabaseFunctions
     {
+        public static void EnterActivity(int userId, int day, string date, int weekDay, string category, string activity, double time)
+        {
+            int dateId = GetDateId(date);
+            int categoryId = GetCategoryId(category);
+            int activtyId = GetActivityId(activity);
+            int timeId = GetTimeId(time);
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+
+                MySqlDataAdapter adr = new MySqlDataAdapter();
+
+                conn.Open();
+
+                string stm = "Insert into activity_log (user_id, calendar_day, calendar_date, day_name, category_description, activity_description, time_spent_on_activity) values " +
+                    "(@userId, @dayId, @dateId, @weekDayId, @categoryId, @activityId, @timeId)";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@dayId", day);
+                cmd.Parameters.AddWithValue("@dateId", dateId);
+                cmd.Parameters.AddWithValue("@weekDayId", weekDay);
+                cmd.Parameters.AddWithValue("@categoryId", categoryId);
+                cmd.Parameters.AddWithValue("@activityId", activtyId);
+                cmd.Parameters.AddWithValue("@timeId", timeId);
+
+                adr.InsertCommand = cmd;
+                adr.InsertCommand.ExecuteNonQuery();
+
+                Console.WriteLine("Activity saved to the database.");
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+        }
+
+        private static int GetTimeId(double time)
+        {
+            int id = 0;
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select activity_time_id from activity_times where time_spent_on_activity = @time";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@time", time);
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each category name into the list
+                    string idString = rdr["activity_time_id"].ToString();
+                    id = int.Parse(idString);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return id;
+        }
+
+        private static int GetActivityId(string activity)
+        {
+            int id = 0;
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select activity_description_id from activity_descriptions where activity_description = @activity";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@activity", activity);
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each category name into the list
+                    string idString = rdr["activity_description_id"].ToString();
+                    id = int.Parse(idString);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return id;
+        }
+
+        private static int GetCategoryId(string category)
+        {
+            int id = 0;
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select activity_category_id from activity_categories where category_description = @category";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@category", category);
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each category name into the list
+                    string idString = rdr["activity_category_id"].ToString();
+                   id = int.Parse(idString);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return id;
+        }
+
+        private static int GetDateId(string date)
+        {
+            int id = 0;
+
+            // Use try catch to connect to database, get and save data to list
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string getDateId = "Select calendar_date_id from tracked_calendar_dates where calendar_date = @date";
+
+                MySqlCommand cmd = new MySqlCommand(getDateId, conn);
+
+                cmd.Parameters.AddWithValue("@date", date);
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // Save each category name into the list
+                    string idString = rdr["calendar_date_id"].ToString();
+                    id = int.Parse(idString);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            return id;
+        }
+
         public static List<double> GetTimes()
         {
             // Create empty list to hold the times
