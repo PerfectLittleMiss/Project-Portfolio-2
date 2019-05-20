@@ -17,9 +17,16 @@ namespace KinaoleLau_TimeTrackerApp
 
             while(running)
             {
-                //userId = Login(running);
+                userId = Login();
 
-                MainMenu(userId);
+                if(userId == 0)
+                {
+                    running = false;
+                }
+                else
+                {
+                    MainMenu(userId);
+                }
             }
             
         }
@@ -49,7 +56,7 @@ namespace KinaoleLau_TimeTrackerApp
 
                     case "3":
                     case "run calculations":
-
+                        Calculations.MainMenu(userId);
                         break;
 
                     case "4":
@@ -70,22 +77,22 @@ namespace KinaoleLau_TimeTrackerApp
             }
         }
 
-        public static int Login(bool running)
+        public static int Login()
         {
-            int userId = 0;
+            int userId = -1;
 
             Console.Clear();
 
             Console.WriteLine("Welcome to the Time Tracker App!");
             Console.WriteLine("In order to get started you need to login.");
 
-            while (userId < 1)
+            while (userId < 0)
             {
                 Console.WriteLine("Enter the number 0 if you wish to skip logging in and exit the program: ");
                 string choice = Console.ReadLine();
                 if(choice.Trim() == "0")
                 {
-                    running = false;
+                    userId = 0;
 
                     Console.WriteLine("Goodbye.");
                     Console.WriteLine("Press any key to exit...");

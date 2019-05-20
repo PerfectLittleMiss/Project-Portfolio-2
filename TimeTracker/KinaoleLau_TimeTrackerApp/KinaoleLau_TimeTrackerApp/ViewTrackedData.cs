@@ -33,9 +33,7 @@ namespace KinaoleLau_TimeTrackerApp
                     case "3":
                     case "select by description":
                     case "description":
-                        Console.WriteLine("Under construction...");
-                        Console.WriteLine("Press any key to continue...");
-                        Console.ReadKey();
+                        DescriptionMenu(userId);
                         break;
                     case "4":
                     case "back":
@@ -49,6 +47,110 @@ namespace KinaoleLau_TimeTrackerApp
                         break;
                 }
             }
+        }
+
+        private static void DescriptionMenu(int userId)
+        {
+            // bool to check if user is on this menu
+            bool running = true;
+
+            while (running)
+            {
+                List<string> descriptions = DatabaseFunctions.GetDescriptions();
+
+                int count = descriptions.Count();
+                int num = 1;
+
+                while (num <= count + 1 && running)
+                {
+                    PrintDescriptionCommands();
+                    string choice = Validation.GetString("Enter your choice: ").ToLower();
+
+                    int choiceNum = 0;
+
+                    int.TryParse(choice, out choiceNum);
+
+                    if (num < count + 1 && ((choiceNum > 0 && choiceNum <= descriptions.Count()) || descriptions.Contains(choice, StringComparer.OrdinalIgnoreCase)))
+                    {
+                        // saves the users selected menu choice
+                        if (int.TryParse(choice, out int test))
+                        {
+                            choice = descriptions[test - 1];
+                        }
+                        else
+                        {
+                            int index = descriptions.FindIndex(x => x.Equals(choice, StringComparison.OrdinalIgnoreCase));
+                            choice = descriptions[index];
+                        }
+
+                        // show all categories, dates performed, total time per activity and total time per description
+                        List<string> categories = DatabaseFunctions.GetCategoriesForDescription(choice, userId);
+
+                        foreach (string category in categories)
+                        {
+                            double totalTime = DatabaseFunctions.GetCategoryTotalTimeForDescription(choice, category, userId);
+                            List<string> dates = DatabaseFunctions.GetCategoryDatesForActivity(choice, category, userId);
+
+                            Console.WriteLine("The activity {0} was performed in the category: {1} for a total time of {2} hours this month.",choice, category, totalTime);
+                            
+                            if (dates.Count < 1)
+                            {
+                                Console.WriteLine("There are no dates logged with this activity.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("It was performed on the following dates:");
+                                foreach (string date in dates)
+                                {
+                                    Console.WriteLine("- {0}", date);
+                                }
+                            }
+                        }
+
+                        if (categories.Count < 1)
+                        {
+                            Console.WriteLine("You don't have anything logged for this description yet.");
+                        }
+
+                        // bool to determine if user is on this sub menu
+                        bool subMenu = true;
+
+                        while (subMenu)
+                        {
+
+                            string subChoice = Validation.GetString("Enter 1 or back when you would like to return to the select description menu: ");
+
+                            switch (subChoice)
+                            {
+                                case "1":
+                                case "back":
+                                    Console.WriteLine("Returning to the select by description menu. Press any key to continue...");
+                                    Console.ReadKey();
+                                    subMenu = false;
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid command. Press any key to continue...");
+                                    Console.ReadKey();
+                                    break;
+                            }
+                        }
+                    }
+                    else if (choice == (count + 1).ToString() || choice == "back")
+                    {
+                        Console.WriteLine("Returning to the view tracked data menu.");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                        running = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid command. Press any key to continue...");
+                        Console.ReadKey();
+                    }
+                    num++;
+                }
+            }
+
         }
 
         private static void CategoryMenu(int userId)
@@ -72,7 +174,7 @@ namespace KinaoleLau_TimeTrackerApp
 
                     int.TryParse(choice, out choiceNum);
 
-                    if (num < count + 1 && ((choiceNum > 0 && choiceNum <= categories.Count()) || categories.Contains(choice)))
+                    if (num < count + 1 && ((choiceNum > 0 && choiceNum <= categories.Count()) || categories.Contains(choice, StringComparer.OrdinalIgnoreCase)))
                     {
                         // saves the users selected menu choice
                         if (int.TryParse(choice, out int test))
@@ -81,7 +183,7 @@ namespace KinaoleLau_TimeTrackerApp
                         }
                         else
                         {
-                            int index = categories.IndexOf(choice);
+                            int index = categories.FindIndex(x => x.Equals(choice, StringComparison.OrdinalIgnoreCase));
                             choice = categories[index];
                         }
 
@@ -94,10 +196,18 @@ namespace KinaoleLau_TimeTrackerApp
                             List<string> dates = DatabaseFunctions.GetActivityDatesForCategory(activity, choice, userId);
 
                             Console.WriteLine("The activity: {0} was performed for a total time of {1} hours this month.", activity, totalTime);
-                            Console.WriteLine("It was performed on the following dates:");
-                            foreach(string date in dates)
+                            
+                            if(dates.Count < 1)
                             {
-                                Console.WriteLine("- {0}", date);
+                                Console.WriteLine("There are no dates logged with this activity.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("It was performed on the following dates:");
+                                foreach (string date in dates)
+                                {
+                                    Console.WriteLine("- {0}", date);
+                                }
                             }
                         }
 
@@ -109,10 +219,10 @@ namespace KinaoleLau_TimeTrackerApp
                         // bool to determine if user is on this sub menu
                         bool subMenu = true;
 
-                        string subChoice = Validation.GetString("Enter 1 or back when you would like to return to the select category menu: ");
-
                         while (subMenu)
                         {
+                            string subChoice = Validation.GetString("Enter 1 or back when you would like to return to the select category menu: ");
+
                             switch (subChoice)
                             {
                                 case "1":
@@ -128,7 +238,7 @@ namespace KinaoleLau_TimeTrackerApp
                             }
                         }
                     }
-                    else if (choice == count + 1.ToString() || choice == "back")
+                    else if (choice == (count + 1).ToString() || choice == "back")
                     {
                         Console.WriteLine("Returning to the view tracked data menu.");
                         Console.WriteLine("Press any key to continue...");
@@ -214,7 +324,7 @@ namespace KinaoleLau_TimeTrackerApp
                         // bool to determine if user is on this sub menu
                         bool subMenu = true;
 
-                        while(subMenu)
+                        while(subMenu && running)
                         {
                             // ask user if they want to enter activity for this day
                             Console.WriteLine("- [1] Enter activity for this day?");
@@ -226,6 +336,7 @@ namespace KinaoleLau_TimeTrackerApp
                                 case "1":
                                 case "enter activity for this day":
                                     EnterActivity.ActivityMenuWithDate(userId, choice);
+                                    running = false;
                                     break;
                                 case "2":
                                 case "back":
@@ -240,7 +351,7 @@ namespace KinaoleLau_TimeTrackerApp
                             }
                         }
                     }
-                    else if (choice == count + 1.ToString() || choice == "back")
+                    else if (choice == (count + 1).ToString() || choice == "back")
                     {
                         Console.WriteLine("Returning to the view tracked data menu.");
                         Console.WriteLine("Press any key to continue...");
@@ -258,6 +369,27 @@ namespace KinaoleLau_TimeTrackerApp
             
         }
 
+        private static void PrintDescriptionCommands()
+        {
+            Console.Clear();
+
+            List<string> descriptions = DatabaseFunctions.GetDescriptions();
+
+            Console.WriteLine("Which description would you like to view?");
+
+            // Create index variable to keep track of activity number
+            int index = 1;
+
+            // Loop through activities and print them as options to the screen
+            foreach (string description in descriptions)
+            {
+                Console.WriteLine("- [{0}] {1}", index, description);
+                index++;
+            }
+
+            Console.WriteLine("- [{0}] Back", index);
+        }
+
         private static void PrintCategoryCommands()
         {
             Console.Clear();
@@ -269,14 +401,14 @@ namespace KinaoleLau_TimeTrackerApp
             // Create index variable to keep track of activity number
             int index = 1;
 
-            // Loop through activities and print them as options to the screen
+            // Loop through categories and print them as options to the screen
             foreach (string category in categories)
             {
                 Console.WriteLine("- [{0}] {1}", index, category);
                 index++;
             }
 
-            Console.WriteLine("- [{0}] Back", index + 1);
+            Console.WriteLine("- [{0}] Back", index);
         }
 
         private static void PrintDateCommands()
@@ -297,7 +429,7 @@ namespace KinaoleLau_TimeTrackerApp
                 index++;
             }
 
-            Console.WriteLine("- [{0}] Back", index + 1);
+            Console.WriteLine("- [{0}] Back", index);
         }
 
         private static List<string> GetDates()

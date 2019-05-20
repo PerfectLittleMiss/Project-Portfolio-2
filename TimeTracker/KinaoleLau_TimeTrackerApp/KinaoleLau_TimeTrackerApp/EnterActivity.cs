@@ -108,7 +108,7 @@ namespace KinaoleLau_TimeTrackerApp
                                         {
                                             // user wants to return to main menu so break out of all while loops
                                             running = false;
-                                            Console.WriteLine("Redirecting you to the main menu. Press any key to continue...");
+                                            Console.WriteLine("Redirecting you to the tracked data menu. Press any key to continue...");
                                             Console.ReadKey();
                                         }
                                     }
@@ -377,12 +377,12 @@ namespace KinaoleLau_TimeTrackerApp
 
                     double.TryParse(choice, out choiceDouble);
 
-                    if (num < count + 1 && ((choiceNum > 0 && choiceNum < list.Count()) || list.Contains(choiceDouble)))
+                    if (num < count + 1 && ((choiceNum > 0 && choiceNum <= list.Count()) || list.Contains(choiceDouble)))
                     {
                         // saves the users selected menu choice
                         if (int.TryParse(choice, out int test))
                         {
-                            userSelectedItem = list[test];
+                            userSelectedItem = list[test - 1];
                             break;
                         }
                         else
@@ -460,17 +460,17 @@ namespace KinaoleLau_TimeTrackerApp
 
                     int.TryParse(choice, out choiceNum);
 
-                    if (num < count + 1 && ((choiceNum > 0 && choiceNum < list.Count()) || list.Contains(choice)))
+                    if (num < count + 1 && ((choiceNum > 0 && choiceNum <= list.Count()) || list.Contains(choice, StringComparer.OrdinalIgnoreCase)))
                     {
                         // saves the users selected menu choice
                         if (int.TryParse(choice, out int test))
                         {
-                            userSelectedItem = list[test];
+                            userSelectedItem = list[test- 1];
                             break;
                         }
                         else
                         {
-                            int index = list.IndexOf(choice);
+                            int index = list.FindIndex(x => x.Equals(choice, StringComparison.OrdinalIgnoreCase));
                             userSelectedItem = list[index];
                             break;
                         }

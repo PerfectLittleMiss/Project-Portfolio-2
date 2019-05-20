@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculations.cs" />
     <Compile Include="DatabaseFunctions.cs" />
     <Compile Include="EnterActivity.cs" />
     <Compile Include="Program.cs" />
