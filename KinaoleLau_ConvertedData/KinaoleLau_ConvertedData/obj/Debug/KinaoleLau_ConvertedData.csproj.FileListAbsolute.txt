@@ -11,3 +11,16 @@ Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\Project & Portfolio I
 Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\Project & Portfolio II\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.csproj.CopyComplete
 Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\Project & Portfolio II\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.exe
 Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\Project & Portfolio II\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.pdb
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\KinaoleLau_ConvertedData.exe.config
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\KinaoleLau_ConvertedData.exe
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\KinaoleLau_ConvertedData.pdb
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\BouncyCastle.Crypto.dll
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\Google.Protobuf.dll
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\MySql.Data.dll
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\Google.Protobuf.xml
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\bin\Debug\MySql.Data.xml
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.csprojAssemblyReference.cache
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.csproj.CoreCompileInputs.cache
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.csproj.CopyComplete
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.exe
+Z:\perfectlittlemiss\OneDrive\Full-Sail-University\Classes\PP2\Project-Portfolio-2\KinaoleLau_ConvertedData\KinaoleLau_ConvertedData\obj\Debug\KinaoleLau_ConvertedData.pdb

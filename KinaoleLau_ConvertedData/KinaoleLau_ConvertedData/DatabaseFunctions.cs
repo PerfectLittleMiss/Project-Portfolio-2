@@ -55,7 +55,7 @@ namespace KinaoleLau_ConvertedData
                 {
                     // Save name to name variable and review score to review score variable
                     string name = rdr["RestaurantName"].ToString();
-                    string reviewScore = rdr["OverallRating"].ToString().Trim();
+                    string reviewScore = rdr["ReviewScore"].ToString().Trim();
                     int reviewScoreInt = 0;
 
                     if(string.IsNullOrEmpty(reviewScore) || reviewScore.ToLower() == "null")
@@ -109,8 +109,10 @@ namespace KinaoleLau_ConvertedData
                     }
                 }
 
+                List<string> names = new List<string>(avgReviewScores.Keys);
+
                 //Average out the review scores
-                foreach(string name in avgReviewScores.Keys)
+                foreach(string name in names)
                 {
                     if(avgReviewScores[name] == "null")
                     {
@@ -126,6 +128,7 @@ namespace KinaoleLau_ConvertedData
                         int avgOf10Rounded = (int)Math.Round(reviewScoreAvgof10);
                         //Save avg value back into dictionary
                         avgReviewScores[name] = avgOf10Rounded.ToString();
+                        continue;
                     }
                 }
 

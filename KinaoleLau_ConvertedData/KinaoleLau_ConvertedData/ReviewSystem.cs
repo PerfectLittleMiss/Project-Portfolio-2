@@ -14,7 +14,7 @@ namespace KinaoleLau_ConvertedData
         // Create timer counter
         static int myTimerCounter = 0;
         //Work around for not being able to add parameters to the ontimedevent functions
-        int reviewScore = 0;
+        static int reviewScore = 0;
 
         public static void MainMenu()
         {
@@ -46,6 +46,10 @@ namespace KinaoleLau_ConvertedData
                         Console.WriteLine("Returning to main menu. Press any key to continue...");
                         Console.ReadKey();
                         break;
+                    default:
+                        Console.WriteLine("Invalid command. Press any key to continue...");
+                        Console.ReadKey();
+                        break;
                 }
             }
         }
@@ -69,7 +73,10 @@ namespace KinaoleLau_ConvertedData
                 {
                     Console.WriteLine("Error");
                 }
+                Console.WriteLine("");
             }
+
+            Program.Pause();
 
         }
 
@@ -78,6 +85,8 @@ namespace KinaoleLau_ConvertedData
             //Start the function every 50/1000 seconds
             myAnimationTimer = new Timer(50);
 
+            ReviewSystem.reviewScore = reviewScore;
+
             // Run the right graph based on scores out of 10
             if (reviewScore <= 3)
             {
@@ -85,7 +94,7 @@ namespace KinaoleLau_ConvertedData
 
                 //At 50/1000, run this method "OnTimedEvent"
                 //Every time it elapses, do it
-                myAnimationTimer.Elapsed += AnimatedBad;
+                myAnimationTimer.Elapsed += Bad;
 
                 //Reset timer again after 50/1000, over and over again
                 myAnimationTimer.AutoReset = false;
@@ -99,7 +108,7 @@ namespace KinaoleLau_ConvertedData
 
                 //At 50/1000, run this method "OnTimedEvent"
                 //Every time it elapses, do it
-                myAnimationTimer.Elapsed += AnimatedAverage;
+                myAnimationTimer.Elapsed += Average;
 
                 //Reset timer again after 50/1000, over and over again
                 myAnimationTimer.AutoReset = false;
@@ -113,13 +122,17 @@ namespace KinaoleLau_ConvertedData
 
                 //At 50/1000, run this method "OnTimedEvent"
                 //Every time it elapses, do it
-                myAnimationTimer.Elapsed += AnimatedGood;
+                myAnimationTimer.Elapsed += Good;
 
                 //Reset timer again after 50/1000, over and over again
                 myAnimationTimer.AutoReset = false;
 
                 //The timer is enabled so it will work
                 myAnimationTimer.Enabled = true;
+            }
+            else
+            {
+                Console.WriteLine("Error");
             }
 
 
@@ -134,11 +147,6 @@ namespace KinaoleLau_ConvertedData
             //Once the animation is over, redraw the bar graph one more time with the actual bar graph data
             //Set color for the bar graph
             Console.BackgroundColor = myBarGraphColor;
-
-            //Work around for being unable to add parameters
-            ReviewSystem instance = new ReviewSystem();
-
-            int reviewScore = instance.reviewScore;
 
             //Create bar graph, not the bar graph background
             for (int ii = 0; ii <= reviewScore; ii++)
@@ -156,6 +164,8 @@ namespace KinaoleLau_ConvertedData
                 //This creates a colored background of spaces
                 Console.Write(" ");
             }
+
+            Console.BackgroundColor = ConsoleColor.Black;
 
             //Move the cursor down and away from the artwork/bar graph to have menu options, text, etc.
             for (int x = 0; x < 2; x++)
@@ -177,11 +187,6 @@ namespace KinaoleLau_ConvertedData
             //Set color for the bar graph
             Console.BackgroundColor = myBarGraphColor;
 
-            //Work around for being unable to add parameters
-            ReviewSystem instance = new ReviewSystem();
-
-            int reviewScore = instance.reviewScore;
-
             //Create bar graph, not the bar graph background
             for (int ii = 0; ii <= reviewScore; ii++)
             {
@@ -198,6 +203,8 @@ namespace KinaoleLau_ConvertedData
                 //This creates a colored background of spaces
                 Console.Write(" ");
             }
+
+            Console.BackgroundColor = ConsoleColor.Black;
 
             //Move the cursor down and away from the artwork/bar graph to have menu options, text, etc.
             for (int x = 0; x < 2; x++)
@@ -219,11 +226,6 @@ namespace KinaoleLau_ConvertedData
             //Set color for the bar graph
             Console.BackgroundColor = myBarGraphColor;
 
-            //Work around for being unable to add parameters
-            ReviewSystem instance = new ReviewSystem();
-
-            int reviewScore = instance.reviewScore;
-
             //Create bar graph, not the bar graph background
             for (int ii = 0; ii <= reviewScore; ii++)
             {
@@ -241,6 +243,8 @@ namespace KinaoleLau_ConvertedData
                 Console.Write(" ");
             }
 
+            Console.BackgroundColor = ConsoleColor.Black;
+
             //Move the cursor down and away from the artwork/bar graph to have menu options, text, etc.
             for (int x = 0; x < 2; x++)
             {
@@ -256,6 +260,8 @@ namespace KinaoleLau_ConvertedData
         {
             //Start the function every 50/1000 seconds
             myAnimationTimer = new Timer(50);
+
+            ReviewSystem.reviewScore = reviewScore;
 
             // Run the right graph based on scores out of 10
             if(reviewScore <= 3)
@@ -356,11 +362,6 @@ namespace KinaoleLau_ConvertedData
                 //Set color for the bar graph
                 Console.BackgroundColor = myBarGraphColor;
 
-                //Work around for being unable to add parameters
-                ReviewSystem instance = new ReviewSystem();
-
-                int reviewScore = instance.reviewScore;
-
                 //Create bar graph, not the bar graph background
                 for (int ii = 0; ii <= reviewScore; ii++)
                 {
@@ -441,11 +442,6 @@ namespace KinaoleLau_ConvertedData
                 //Set color for the bar graph
                 Console.BackgroundColor = myBarGraphColor;
 
-                //Work around for being unable to add parameters
-                ReviewSystem instance = new ReviewSystem();
-
-                int reviewScore = instance.reviewScore;
-
                 //Create bar graph, not the bar graph background
                 for (int ii = 0; ii <= reviewScore; ii++)
                 {
@@ -525,11 +521,6 @@ namespace KinaoleLau_ConvertedData
                 //Once the animation is over, redraw the bar graph one more time with the actual bar graph data
                 //Set color for the bar graph
                 Console.BackgroundColor = myBarGraphColor;
-
-                //Work around for being unable to add parameters
-                ReviewSystem instance = new ReviewSystem();
-
-                int reviewScore = instance.reviewScore;
 
                 //Create bar graph, not the bar graph background
                 for (int ii = 0; ii <= reviewScore; ii++)

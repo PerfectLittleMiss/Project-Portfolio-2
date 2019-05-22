@@ -45,8 +45,7 @@ namespace KinaoleLau_ConvertedData
                     case "3":
                     case "showcase our animated bar graph review system":
                     case "showcase review system":
-                        Console.WriteLine("Option not available yet.");
-                        Pause();
+                        ReviewSystem.MainMenu();
                         break;
 
                     case "4":
