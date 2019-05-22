@@ -32,6 +32,115 @@ namespace KinaoleLau_ConvertedData
             return conString;
         }
 
+        public static Dictionary<string, string> GetRestaurantAverageReviewScore()
+        {
+            //Dictionary to store the restaurant name and average review score
+            Dictionary<string, string> avgReviewScores = new Dictionary<string, string>();
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select RestaurantName, ReviewScore from RestaurantReviews join RestaurantProfiles on RestaurantReviews.RestaurantId = RestaurantProfiles.id";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                rdr = cmd.ExecuteReader();
+                
+
+                while (rdr.Read())
+                {
+                    // Save name to name variable and review score to review score variable
+                    string name = rdr["RestaurantName"].ToString();
+                    string reviewScore = rdr["OverallRating"].ToString().Trim();
+                    int reviewScoreInt = 0;
+
+                    if(string.IsNullOrEmpty(reviewScore) || reviewScore.ToLower() == "null")
+                    {
+                        reviewScore = "null";
+                    }
+                    else
+                    {
+                        reviewScoreInt = int.Parse(reviewScore);
+                    }
+
+                    // Check if dictionary contains restaurant name already, if so add reviewScore to existing reviewScore else create new key value pair
+                    if(avgReviewScores.ContainsKey(name))
+                    {
+                        // if reviewScore is null
+                        if(avgReviewScores[name] == "null")
+                        {
+                            if(reviewScore == "null")
+                            {
+                                //Do nothing
+                            }
+                            else
+                            {
+                                //Change the reviewScore to the value
+                                avgReviewScores[name] = reviewScore;
+                            }
+                        }
+                        // else reviewScore contains a numeric value
+                        else
+                        {
+                            if(reviewScore == "null")
+                            {
+                                // Do nothing
+                            }
+                            else
+                            {
+                                // Add the new review score value to the current review score value
+                                int currentReviewScore = int.Parse(avgReviewScores[name]);
+                                currentReviewScore += reviewScoreInt;
+
+                                // Add the new review score back in to the dictionary
+                                avgReviewScores[name] = currentReviewScore.ToString();
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        // Dictionary does not contain restaurant name already so add name and value
+                        avgReviewScores.Add(name, reviewScore);
+                    }
+                }
+
+                //Average out the review scores
+                foreach(string name in avgReviewScores.Keys)
+                {
+                    if(avgReviewScores[name] == "null")
+                    {
+                        //Do nothing
+                        continue;
+                    }
+                    else
+                    {
+                        int reviewScoreSum = int.Parse(avgReviewScores[name]);
+                        //Get the average of 10
+                        double reviewScoreAvgof10 = (reviewScoreSum / 100) / 10;
+                        //Round it to a whole number
+                        int avgOf10Rounded = (int)Math.Round(reviewScoreAvgof10);
+                        //Save avg value back into dictionary
+                        avgReviewScores[name] = avgOf10Rounded.ToString();
+                    }
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+
+            return avgReviewScores;
+        }
+
         public static Dictionary<string, decimal?> GetRestaurantRatings()
         {
             //Empty dictionary to hold the index/id, restaurant name, and the rating
