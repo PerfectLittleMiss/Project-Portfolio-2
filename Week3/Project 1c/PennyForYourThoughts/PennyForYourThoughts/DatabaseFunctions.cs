@@ -282,9 +282,11 @@ namespace PennyForYourThoughts
 
                 MySqlDataReader rdr = null;
 
-                string stm = "Select thoughtId, preview from thoughts where userId = @userId and content like \"%@searchTerm%\"";
+                string stm = "Select thoughtId, preview from thoughts where userId = @userId and content like @searchTerm";
 
                 MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                searchTerm = "%" + searchTerm + "%";
 
                 cmd.Parameters.AddWithValue("@userId", userId);
                 cmd.Parameters.AddWithValue("@searchTerm", searchTerm);
@@ -374,6 +376,9 @@ namespace PennyForYourThoughts
 
                 rdr = cmd.ExecuteReader();
 
+                conn.Close();
+                conn.Open();
+
                 stm = "Select * from thoughts where preview = @preview and content = @content and updated = @updated and thoughtId = @thoughtId";
 
                 cmd = new MySqlCommand(stm, conn);
@@ -420,6 +425,10 @@ namespace PennyForYourThoughts
                 cmd.Parameters.AddWithValue("@thoughtId", thoughtId);
 
                 rdr = cmd.ExecuteReader();
+
+                conn.Close();
+
+                conn.Open();
 
                 stm = "Select * from thoughts where thoughtId = @thoughtId";
 
@@ -495,7 +504,7 @@ namespace PennyForYourThoughts
             return idAndPreview;
         }
 
-        public static void CreateThought(string content, string preview, string updated)
+        public static void CreateThought(string content, string preview, string updated, int userId)
         {
             // Use try catch to connect to database, get data into datatable and save data to dictionary
             try
@@ -505,15 +514,19 @@ namespace PennyForYourThoughts
 
                 MySqlDataReader rdr = null;
 
-                string stm = "Insert into thoughts (preview, content, updated) values (@preview, @content, @updated)";
+                string stm = "Insert into thoughts (userId, preview, content, updated) values (@userId, @preview, @content, @updated)";
 
                 MySqlCommand cmd = new MySqlCommand(stm, conn);
                 
                 cmd.Parameters.AddWithValue("@preview", preview);
                 cmd.Parameters.AddWithValue("@content", content);
                 cmd.Parameters.AddWithValue("@updated", updated);
+                cmd.Parameters.AddWithValue("@userId", userId);
 
                 rdr = cmd.ExecuteReader();
+
+                conn.Close();
+                conn.Open();
 
                 stm = "Select * from thoughts where preview = @preview and content = @content and updated = @updated";
 

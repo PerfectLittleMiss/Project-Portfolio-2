@@ -22,7 +22,7 @@ namespace PennyForYourThoughts
                 {
                     case "1":
                     case "view/edit thoughts":
-
+                        Thoughts.Menu(DatabaseFunctions.GetUserId(username), username);
                         break;
 
                     case "2":

@@ -150,7 +150,9 @@ namespace PennyForYourThoughts
                     }
                     else
                     {
-                        string name = DatabaseFunctions.CheckUsernameAndPassword(username, password);
+                        string userGivenPassword = Validation.GetString("Enter your password: ");
+
+                        string name = DatabaseFunctions.CheckUsernameAndPassword(username, userGivenPassword);
 
                         if(name == "false" || string.IsNullOrWhiteSpace(name))
                         {
