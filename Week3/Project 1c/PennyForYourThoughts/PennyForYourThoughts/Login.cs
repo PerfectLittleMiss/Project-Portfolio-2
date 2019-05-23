@@ -30,7 +30,7 @@ namespace PennyForYourThoughts
 
                     case "2":
                     case "create a new account":
-
+                        CreateUser();
                         break;
 
                     case "3":
@@ -105,6 +105,8 @@ namespace PennyForYourThoughts
                             {
                                 // add user to the database then take user to the profile page
                                 DatabaseFunctions.AddUser(username, password, name);
+                                UserProfile.ProfileMenu(name, username);
+                                running = false;
                             }
                         }
                         else
@@ -159,6 +161,8 @@ namespace PennyForYourThoughts
                         else
                         {
                             //Login was successful so take the user to the user profile page
+                            UserProfile.ProfileMenu(name, username);
+                            running = false;
                         }
                     }
                 }
