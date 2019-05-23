@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,12 +45,7 @@ namespace KinaoleLau_ConvertedData
                     case "3":
                     case "showcase our animated bar graph review system":
                     case "showcase review system":
-<<<<<<< HEAD
                         ReviewSystem.MainMenu();
-=======
-                        Console.WriteLine("Option not available yet.");
-                        Pause();
->>>>>>> 70da984bdb9c681fc971fb28689afb48eaa7542b
                         break;
 
                     case "4":
