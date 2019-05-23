@@ -10,6 +10,7 @@ namespace PennyForYourThoughts
     {
         static void Main(string[] args)
         {
+            Login.LoginMenu();
         }
     }
 }

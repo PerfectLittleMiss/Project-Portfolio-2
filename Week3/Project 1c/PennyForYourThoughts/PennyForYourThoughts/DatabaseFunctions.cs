@@ -268,5 +268,279 @@ namespace PennyForYourThoughts
             // return the variable password
             return userId;
         }
+
+        public static Dictionary<int, string> SearchThoughts(int userId, string searchTerm)
+        {
+            //Dictionary to hold the thought id and preview of thoughts that match the search term
+            Dictionary<int, string> idAndPreview = new Dictionary<int, string>();
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select thoughtId, preview from thoughts where userId = @userId and content like \"%@searchTerm%\"";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@searchTerm", searchTerm);
+
+                rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    // Save id to thoughtId and content to content
+                    int thoughtId = int.Parse(rdr["thoughtId"].ToString());
+                    string preview = rdr["preview"].ToString();
+
+                    // add id and content to the dictionary
+                    idAndPreview.Add(thoughtId, preview);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            // return the variable password
+            return idAndPreview;
+        }
+
+        public static string GetThoughtContent(int thoughtId)
+        {
+            string content = null;
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select content from thoughts where thoughtId = @thoughtId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@thoughtId", thoughtId);
+
+                rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    // Save password to password variable
+                    content = rdr["content"].ToString();
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            // return the variable password
+            return content;
+        }
+
+        public static void UpdateThought(int thoughtId, string newContent, string preview, string updated)
+        {
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Update thoughts set preview = @preview, content = @content, updated = @updated where thoughtId = @thoughtId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@thoughtId", thoughtId);
+                cmd.Parameters.AddWithValue("@preview", preview);
+                cmd.Parameters.AddWithValue("@content", newContent);
+                cmd.Parameters.AddWithValue("@updated", updated);
+
+                rdr = cmd.ExecuteReader();
+
+                stm = "Select * from thoughts where preview = @preview and content = @content and updated = @updated and thoughtId = @thoughtId";
+
+                cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@thoughtId", thoughtId);
+                cmd.Parameters.AddWithValue("@preview", preview);
+                cmd.Parameters.AddWithValue("@content", newContent);
+                cmd.Parameters.AddWithValue("@updated", updated);
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // If rdr has a row then it worked so just tell the user that their thought has been updated
+                    Console.WriteLine("Your thought has been successfully updated!");
+                    Console.WriteLine("Returning to the thoughts menu. Press any key to continue...");
+                    Console.ReadKey();
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+        }
+
+        public static void DeleteThought(int thoughtId)
+        {
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Delete from thoughts where thoughtId = @thoughtId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@thoughtId", thoughtId);
+
+                rdr = cmd.ExecuteReader();
+
+                stm = "Select * from thoughts where thoughtId = @thoughtId";
+
+                cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@thoughtId", thoughtId);
+
+                rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    // if there's a row that means the delete failed
+                    Console.WriteLine("Delete failed.");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                }
+
+                Console.WriteLine("Thought successfully deleted. Press any key to return to the thoughts menu...");
+                Console.ReadKey();
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+        }
+
+        public static Dictionary<int, string> GetAllThoughts(int userId)
+        {
+            //Dictionary to hold the thought id and preview of thoughts that match the search term
+            Dictionary<int, string> idAndPreview = new Dictionary<int, string>();
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select thoughtId, preview from thoughts where userId = @userId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    // Save id to thoughtId and content to content
+                    int thoughtId = int.Parse(rdr["thoughtId"].ToString());
+                    string preview = rdr["preview"].ToString();
+
+                    // add id and content to the dictionary
+                    idAndPreview.Add(thoughtId, preview);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            // return the variable password
+            return idAndPreview;
+        }
+
+        public static void CreateThought(string content, string preview, string updated)
+        {
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Insert into thoughts (preview, content, updated) values (@preview, @content, @updated)";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                
+                cmd.Parameters.AddWithValue("@preview", preview);
+                cmd.Parameters.AddWithValue("@content", content);
+                cmd.Parameters.AddWithValue("@updated", updated);
+
+                rdr = cmd.ExecuteReader();
+
+                stm = "Select * from thoughts where preview = @preview and content = @content and updated = @updated";
+
+                cmd = new MySqlCommand(stm, conn);
+                
+                cmd.Parameters.AddWithValue("@preview", preview);
+                cmd.Parameters.AddWithValue("@content", content);
+                cmd.Parameters.AddWithValue("@updated", updated);
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    // If rdr has a row then it worked so just tell the user that their thought has been created
+                    Console.WriteLine("Your thought has been successfully created!");
+                    Console.WriteLine("Returning to the thoughts menu. Press any key to continue...");
+                    Console.ReadKey();
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+        }
     }
 }
