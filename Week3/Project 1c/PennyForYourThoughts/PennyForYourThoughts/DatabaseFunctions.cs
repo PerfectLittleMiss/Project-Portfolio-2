@@ -186,5 +186,87 @@ namespace PennyForYourThoughts
                 Console.WriteLine(msg);
             }
         }
+
+        public static int GetThoughtCount(string username)
+        {
+            // create int to hold the thought count
+            int count = 0;
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select count(thoughtId) from thoughts where userId = @userId";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                int userId = GetUserId(username);
+
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    // Save password to password variable
+                    count = int.Parse(rdr["count(thoughtId)"].ToString());
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            // return the variable count
+            return count;
+        }
+
+        public static int GetUserId(string username)
+        {
+            // create int to hold user id
+            int userId = 0;
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select userId from users where username = @username";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+
+                cmd.Parameters.AddWithValue("@username", username);
+
+                rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    // Save password to password variable
+                    userId = int.Parse(rdr["userId"].ToString());
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+            // return the variable password
+            return userId;
+        }
     }
 }
