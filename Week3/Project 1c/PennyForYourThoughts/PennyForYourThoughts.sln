@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinaoleLau_TimeTrackerApp", "KinaoleLau_TimeTrackerApp\KinaoleLau_TimeTrackerApp.csproj", "{7896B976-EEF9-4FCF-A476-820D9484F34F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PennyForYourThoughts", "PennyForYourThoughts\PennyForYourThoughts.csproj", "{04267DD0-038D-4035-AA03-955AB3F9C574}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7896B976-EEF9-4FCF-A476-820D9484F34F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7896B976-EEF9-4FCF-A476-820D9484F34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7896B976-EEF9-4FCF-A476-820D9484F34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7896B976-EEF9-4FCF-A476-820D9484F34F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04267DD0-038D-4035-AA03-955AB3F9C574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04267DD0-038D-4035-AA03-955AB3F9C574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04267DD0-038D-4035-AA03-955AB3F9C574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04267DD0-038D-4035-AA03-955AB3F9C574}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B0D4766D-6A97-403A-8731-D9E67D8FD7A6}
+		SolutionGuid = {36F8FF4D-896C-4E2D-830D-188A6048B2E3}
 	EndGlobalSection
 EndGlobal

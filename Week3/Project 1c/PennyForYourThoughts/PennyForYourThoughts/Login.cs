@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KinaoleLau_TimeTrackerApp
+namespace PennyForYourThoughts
 {
-    class Calculations
+    class Login
     {
-        public static void MainMenu(int userId)
-        {
-
-        }
     }
 }
