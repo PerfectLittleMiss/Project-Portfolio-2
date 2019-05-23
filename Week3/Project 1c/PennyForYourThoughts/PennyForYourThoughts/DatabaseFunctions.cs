@@ -144,6 +144,9 @@ namespace PennyForYourThoughts
 
                 rdr = cmd.ExecuteReader();
 
+                conn.Close();
+                conn.Open();
+
                 // check that user was successfully inserted
                 stm = "Select * from users where username = @username and password = @password and name = @name";
 
