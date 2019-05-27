@@ -35,11 +35,11 @@ namespace KinaoleLau_ConvertedData
                         break;
                     case "2":
                     case "dinner spinner":
-
+                        DinnerSpinner();
                         break;
                     case "3":
                     case "top 10 restaurants":
-
+                        Top10();
                         break;
                     case "4":
                     case "back to main menu":
@@ -53,6 +53,58 @@ namespace KinaoleLau_ConvertedData
                         break;
                 }
             }
+        }
+
+        private static void Top10()
+        {
+            //get the restaurants that don't have null as a value
+            Dictionary<string, int> restaurantsWONull = GetRestaurantsWONullValues();
+
+            int i = 0;
+            foreach(KeyValuePair<string, int> restaurant in restaurantsWONull.OrderByDescending(key => key.Value))
+            {
+                if(i <= 10)
+                {
+                    string rating = restaurant.Value + "/10";
+                    SetTimerAnimated(restaurant.Value, restaurant.Key, rating);
+                    Thread.Sleep(2000);
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else
+                {
+                    break;
+                }
+                i++;
+            }
+            Program.Pause();
+        }
+
+        private static Dictionary<string, int> GetRestaurantsWONullValues()
+        {
+            // Get the dictionary with the name and string review scores
+            Dictionary<string, string> avgReviewScores = DatabaseFunctions.GetRestaurantAverageReviewScore();
+            // Create the dictionary to hold the restaurants with no null values
+            Dictionary<string, int> restaurantsWONull = new Dictionary<string, int>();
+
+            foreach(string name in avgReviewScores.Keys)
+            {
+                if(avgReviewScores[name] == "null")
+                {
+                    // do nothing
+                    continue;
+                }
+                else if(int.TryParse(avgReviewScores[name], out int reviewScore))
+                {
+                    //add the name and review score to the new dictionary
+                    restaurantsWONull.Add(name, reviewScore);
+                }
+                else
+                {
+                    Console.WriteLine("Error.");
+                }
+            }
+
+            return restaurantsWONull;
         }
 
         private static void DinnerSpinner()
@@ -79,6 +131,9 @@ namespace KinaoleLau_ConvertedData
             {
                 Console.WriteLine("Error.");
             }
+            Thread.Sleep(2000);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Program.Pause();
         }
 
         private static void ShowAverage()
@@ -288,12 +343,15 @@ namespace KinaoleLau_ConvertedData
             //Start the function every 50/1000 seconds
             myAnimationTimer = new System.Timers.Timer(50);
 
+            myTimerCounter = 0;
+
             ReviewSystem.reviewScore = reviewScore;
 
             // Run the right graph based on scores out of 10
             if(reviewScore <= 3)
             {
-                Console.Write("{0} - Rating: {1} Bar Graph: ", name, rating);
+                Console.WriteLine("{0} - Rating: {1} Bar Graph: ", name, rating);
+                Console.WriteLine("");
 
                 //At 50/1000, run this method "OnTimedEvent"
                 //Every time it elapses, do it
@@ -307,7 +365,8 @@ namespace KinaoleLau_ConvertedData
             }
             else if (reviewScore < 7)
             {
-                Console.Write("{0} - Rating: {1} Bar Graph: ", name, rating);
+                Console.WriteLine("{0} - Rating: {1} Bar Graph: ", name, rating);
+                Console.WriteLine("");
 
                 //At 50/1000, run this method "OnTimedEvent"
                 //Every time it elapses, do it
@@ -321,7 +380,8 @@ namespace KinaoleLau_ConvertedData
             }
             else if (reviewScore <= 10)
             {
-                Console.Write("{0} - Rating: {1} Bar Graph: ", name, rating);
+                Console.WriteLine("{0} - Rating: {1} Bar Graph: ", name, rating);
+                Console.WriteLine("");
 
                 //At 50/1000, run this method "OnTimedEvent"
                 //Every time it elapses, do it
@@ -337,7 +397,8 @@ namespace KinaoleLau_ConvertedData
             {
                 Console.WriteLine("Error");
             }
-            Thread.Sleep(500);
+
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         //Timer Method that runs every time the timer elapses
@@ -463,7 +524,7 @@ namespace KinaoleLau_ConvertedData
             Console.CursorLeft = 0;
 
             //After a bit of time, stop the animation
-            if (myTimerCounter == 50)
+            if (myTimerCounter >= 20)
             {
                 //Stop Timer
                 myAnimationTimer.Stop();
@@ -584,6 +645,7 @@ namespace KinaoleLau_ConvertedData
         private static void PrintCommands()
         {
             Console.Clear();
+            Console.BackgroundColor = ConsoleColor.Black;
 
             Console.WriteLine("[1] Show Average of Reviews for Restaurants");
             Console.WriteLine("[2] Dinner Spinner");
