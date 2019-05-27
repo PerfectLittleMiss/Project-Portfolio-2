@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -10,7 +11,7 @@ namespace KinaoleLau_ConvertedData
     class ReviewSystem
     {
         // Create timer variable
-        private static Timer myAnimationTimer;
+        private static System.Timers.Timer myAnimationTimer;
         // Create timer counter
         static int myTimerCounter = 0;
         //Work around for not being able to add parameters to the ontimedevent functions
@@ -54,6 +55,32 @@ namespace KinaoleLau_ConvertedData
             }
         }
 
+        private static void DinnerSpinner()
+        {
+            // Get the dictionary of restaurants
+            Dictionary<string, string> avgReviewScores = DatabaseFunctions.GetRestaurantAverageReviewScore();
+            // Create list of restaurant names
+            List<string> restaurantNames = avgReviewScores.Keys.ToList();
+            // Get random number for the random restaurant
+            Random rand = new Random();
+            int chosenNameInt = rand.Next(0, restaurantNames.Count());
+            string chosenName = restaurantNames[chosenNameInt];
+            // Get the review score from the dictionary
+            if(avgReviewScores[chosenName] == "null")
+            {
+                Console.WriteLine("{0} - Rating: NULL Bar Graph: NULL", chosenName);
+            }
+            else if(int.TryParse(avgReviewScores[chosenName], out int reviewScore))
+            {
+                string rating = reviewScore + "/10";
+                SetTimerAnimated(reviewScore, chosenName, rating);
+            }
+            else
+            {
+                Console.WriteLine("Error.");
+            }
+        }
+
         private static void ShowAverage()
         {
             Dictionary<string, string> avgReviewScores = DatabaseFunctions.GetRestaurantAverageReviewScore();
@@ -83,7 +110,7 @@ namespace KinaoleLau_ConvertedData
         private static void SetTimer(int reviewScore, string name, string rating)
         {
             //Start the function every 50/1000 seconds
-            myAnimationTimer = new Timer(50);
+            myAnimationTimer = new System.Timers.Timer(50);
 
             ReviewSystem.reviewScore = reviewScore;
 
@@ -134,7 +161,7 @@ namespace KinaoleLau_ConvertedData
             {
                 Console.WriteLine("Error");
             }
-
+            Thread.Sleep(500);
 
         }
 
@@ -259,7 +286,7 @@ namespace KinaoleLau_ConvertedData
         private static void SetTimerAnimated(int reviewScore, string name, string rating)
         {
             //Start the function every 50/1000 seconds
-            myAnimationTimer = new Timer(50);
+            myAnimationTimer = new System.Timers.Timer(50);
 
             ReviewSystem.reviewScore = reviewScore;
 
@@ -306,8 +333,11 @@ namespace KinaoleLau_ConvertedData
                 //The timer is enabled so it will work
                 myAnimationTimer.Enabled = true;
             }
-
-            
+            else
+            {
+                Console.WriteLine("Error");
+            }
+            Thread.Sleep(500);
         }
 
         //Timer Method that runs every time the timer elapses
