@@ -375,5 +375,46 @@ namespace KinaoleLau_ConvertedData
 
             return DBInfo;
         }
+
+        public static List<string> GetPlayers()
+        {
+            //List to hold the players
+            List<string> players = new List<string>();
+
+            // Use try catch to connect to database, get data into datatable and save data to dictionary
+            try
+            {
+                MySqlConnection conn = new MySqlConnection(GetConnString());
+                conn.Open();
+
+                MySqlDataReader rdr = null;
+
+                string stm = "Select First, Last from RestaurantReviewers Order By RAND() Limit 4";
+
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                rdr = cmd.ExecuteReader();
+
+
+                while (rdr.Read())
+                {
+                    // Save first to first, last to last, and first and last to name
+                    string first = rdr["First"].ToString();
+                    string last = rdr["Last"].ToString();
+                    string name = first + " " + last;
+
+                    players.Add(name);
+                }
+
+                conn.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                string msg = e.ToString();
+                Console.WriteLine(msg);
+            }
+
+            return players;
+        }
     }
 }
