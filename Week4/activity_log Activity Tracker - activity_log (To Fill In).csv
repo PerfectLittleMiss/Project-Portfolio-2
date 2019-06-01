@@ -1,0 +1,180 @@
+user_id,calendar_day,calendar_date,day_name,category_description,activity_descriptions,time_spent_on_activity
+1,1,2019-05-06,Monday,Other,Sleep,12.5
+1,2,2019-05-07,Tuesday,Project & Portfolio 2,Researching,0.5
+1,2,2019-05-07,Tuesday,Project & Portfolio 2,Coding,1.5
+1,2,2019-05-07,Tuesday,Project & Portfolio 2,Troubleshooting,0.5
+1,2,2019-05-07,Tuesday,Other,Sleep,9.5
+1,2,2019-05-07,Tuesday,Other,Eating,0.25
+1,3,2019-05-08,Wednesday,Other,Sleep,12
+1,4,2019-05-09,Thursday,Project & Portfolio 2,Coding,1
+1,4,2019-05-09,Thursday,Project & Portfolio 2,Troubleshooting,1.5
+1,4,2019-05-09,Thursday,Project & Portfolio 2,Writing,0.25
+1,4,2019-05-09,Thursday,Project & Portfolio 2,Data Entry,0.25
+1,4,2019-05-09,Thursday,Other,Sleep,9
+1,4,2019-05-09,Thursday,Work,World-Building,2
+1,5,2019-05-10,Friday,Project & Portfolio 2,Reading,0.25
+1,5,2019-05-10,Friday,Work,World-Building,3
+1,5,2019-05-10,Friday,Other,Sleep,11
+1,5,2019-05-10,Friday,Other,Eating,0.25
+1,5,2019-05-10,Friday,Relax,Watching WWE,2
+1,6,2019-05-11,Saturday,Project & Portfolio 2,Researching,2
+1,6,2019-05-11,Saturday,Project & Portfolio 2,Writing,0.5
+1,6,2019-05-11,Saturday,Project & Portfolio 2,Reading,0.25
+1,6,2019-05-11,Saturday,Project & Portfolio 2,Troubleshooting,0.5
+1,6,2019-05-11,Saturday,Project & Portfolio 2,Data Entry,0.25
+1,6,2019-05-11,Saturday,Other,Sleep,9
+1,6,2019-05-11,Saturday,Work,World-Building,1.5
+1,6,2019-05-11,Saturday,Relax,Watching WWE,2
+1,7,2019-05-12,Sunday,Project & Portfolio 2,Researching,2
+1,7,2019-05-12,Sunday,Project & Portfolio 2,Writing,1
+1,7,2019-05-12,Sunday,Project & Portfolio 2,Data Entry,0.25
+1,7,2019-05-12,Sunday,Other,Sleep,8.5
+1,7,2019-05-12,Sunday,Other,Eating,0.5
+1,7,2019-05-12,Sunday,Relax,Driving/In the car,1.5
+1,8,2019-05-13,Monday,Project & Portfolio 2,Data Entry,1
+1,8,2019-05-13,Monday,Project & Portfolio 2,Troubleshooting,0.25
+1,8,2019-05-13,Monday,Project & Portfolio 2,Doing Homework,1.5
+1,8,2019-05-13,Monday,Other,Sleep,8.5
+1,8,2019-05-13,Monday,Relax,Driving/In the car,0.5
+1,8,2019-05-13,Monday,Work,World-Building,2
+1,8,2019-05-13,Monday,Project & Portfolio 2,Researching,1
+1,8,2019-05-13,Monday,Project & Portfolio 2,Writing,1.5
+1,8,2019-05-13,Monday,Relax,Watching WWE,2
+1,8,2019-05-13,Monday,Other,Eating,0.25
+1,8,2019-05-13,Monday,Work,Design Work,0.5
+1,9,2019-05-14,Tuesday,Other,Sleep,7
+1,9,2019-05-14,Tuesday,Work,Bookkeeping,3
+1,9,2019-05-14,Tuesday,Other,Eating,0.25
+1,9,2019-05-14,Tuesday,Work,Driving/In the car,1
+1,9,2019-05-14,Tuesday,Project & Portfolio 2,Doing Homework,2
+1,10,2019-05-15,Wednesday,Other,Sleep,9
+1,10,2019-05-15,Wednesday,Project & Portfolio 2,Coding,2
+1,10,2019-05-15,Wednesday,Project & Portfolio 2,Troubleshooting,3.75
+1,10,2019-05-15,Wednesday,Other,Eating,1
+1,10,2019-05-15,Wednesday,Other,Walking the dog,1.5
+1,10,2019-05-15,Wednesday,Project & Portfolio 2,Doing Homework,1.5
+1,10,2019-05-15,Wednesday,Project & Portfolio 2,Data Entry,0.25
+1,10,2019-05-15,Wednesday,Project & Portfolio 2,Writing,0.25
+1,10,2019-05-15,Wednesday,Relax,Watching WWE,1.5
+1,10,2019-05-15,Wednesday,Work,World-Building,1
+1,11,2019-05-16,Thursday,Other,Sleep,7
+1,11,2019-05-16,Thursday,Project & Portfolio 2,Doing Homework,2
+1,11,2019-05-16,Thursday,Project & Portfolio 2,Coding,1.5
+1,11,2019-05-16,Thursday,Project & Portfolio 2,Troubleshooting,2
+1,11,2019-05-16,Thursday,Project & Portfolio 2,Data Entry,0.25
+1,11,2019-05-16,Thursday,Project & Portfolio 2,Researching,0.25
+1,11,2019-05-16,Thursday,Work,Design Work,0.5
+1,11,2019-05-16,Thursday,Work,Drawing,2.5
+1,11,2019-05-16,Thursday,Work,Writing,0.25
+1,11,2019-05-16,Thursday,Work,World-Building,0.25
+1,11,2019-05-16,Thursday,Other,Eating,0.5
+1,12,2019-05-17,Friday,Other,Sleep,8
+1,12,2019-05-17,Friday,Project & Portfolio 2,Researching,2
+1,12,2019-05-17,Friday,Project & Portfolio 2,Writing,1
+1,12,2019-05-17,Friday,Project & Portfolio 2,Doing Homework,1
+1,12,2019-05-17,Friday,Other,Eating,1
+1,12,2019-05-17,Friday,Other,Dancing,3
+1,12,2019-05-17,Friday,Other,Driving/In the car,0.5
+1,12,2019-05-17,Friday,Work,Writing,1
+1,12,2019-05-17,Friday,Project & Portfolio 2,Data Entry,0.25
+1,13,2019-05-18,Saturday,Other,Sleep,8
+1,13,2019-05-18,Saturday,Project & Portfolio 2,Coding,5
+1,13,2019-05-18,Saturday,Project & Portfolio 2,Troubleshooting,3
+1,13,2019-05-18,Saturday,Project & Portfolio 2,Data Entry,0.25
+1,13,2019-05-18,Saturday,Other,Dancing,3
+1,13,2019-05-18,Saturday,Relax,Reading,0.5
+1,13,2019-05-18,Saturday,Work,Meetings,1.5
+1,14,2019-05-19,Sunday,Other,Sleep,7
+1,14,2019-05-19,Sunday,Work,Writing,1.5
+1,14,2019-05-19,Sunday,Project & Portfolio 2,Coding,3.5
+1,14,2019-05-19,Sunday,Project & Portfolio 2,Troubleshooting,2.75
+1,14,2019-05-19,Sunday,Project & Portfolio 2,Data Entry,0.25
+1,14,2019-05-19,Sunday,Relax,Watching WWE,2
+1,14,2019-05-19,Sunday,Other,Walking the dog,2.25
+1,15,2019-05-20,Monday,Project & Portfolio 2,Reading,1
+1,15,2019-05-20,Monday,Other,Sleep,8
+1,15,2019-05-20,Monday,Work,Writing,2
+1,15,2019-05-20,Monday,Relax,Watching WWE,1
+1,15,2019-05-20,Monday,Other,Walking the dog,1
+1,15,2019-05-20,Monday,Project & Portfolio 2,Doing Homework,1
+1,15,2019-05-20,Monday,Project & Portfolio 2,Data Entry,1
+1,16,2019-05-21,Tuesday,Other,Sleep,9
+1,16,2019-05-21,Tuesday,Project & Portfolio 2,Coding,2
+1,16,2019-05-21,Tuesday,Project & Portfolio 2,Troubleshooting,2.75
+1,16,2019-05-21,Tuesday,Other,Eating,1
+1,16,2019-05-21,Tuesday,Project & Portfolio 2,Researching,1
+1,16,2019-05-21,Tuesday,Relax,Watching WWE,1.5
+1,16,2019-05-21,Tuesday,Project & Portfolio 2,Doing Homework,1
+1,17,2019-05-22,Wednesday,Other,Sleep,8
+1,17,2019-05-22,Wednesday,Other,Driving/In the car,1.5
+1,17,2019-05-22,Wednesday,Project & Portfolio 2,Coding,3
+1,17,2019-05-22,Wednesday,Project & Portfolio 2,Troubleshooting,1.5
+1,17,2019-05-22,Wednesday,Project & Portfolio 2,Data Entry,0.25
+1,17,2019-05-22,Wednesday,Project & Portfolio 2,Doing Homework,0.5
+1,17,2019-05-22,Wednesday,Other,Walking the dog,2
+1,17,2019-05-22,Wednesday,Other,Eating,1
+1,17,2019-05-22,Wednesday,Work,Reading,0.25
+1,17,2019-05-22,Wednesday,Relax,Watching WWE,1.5
+1,18,2019-05-23,Thursday,Other,Sleep,9
+1,18,2019-05-23,Thursday,Work,Writing,2
+1,18,2019-05-23,Thursday,Other,Eating,2.5
+1,18,2019-05-23,Thursday,Project & Portfolio 2,Data Entry,0.25
+1,19,2019-05-24,Friday,Other,Sleep,8
+1,19,2019-05-24,Friday,Other,Driving/In the car,1.5
+1,19,2019-05-24,Friday,Project & Portfolio 2,Researching,1
+1,19,2019-05-24,Friday,Project & Portfolio 2,Writing,1
+1,19,2019-05-24,Friday,Relax,Dancing,3
+1,19,2019-05-24,Friday,Relax,Watching WWE,1.5
+1,19,2019-05-24,Friday,Other,Eating,1.5
+1,20,2019-05-25,Saturday,Other,Sleep,8
+1,20,2019-05-25,Saturday,Project & Portfolio 2,Data Entry,0.25
+1,20,2019-05-25,Saturday,Project & Portfolio 2,Researching,1.5
+1,20,2019-05-25,Saturday,Project & Portfolio 2,Writing,1
+1,20,2019-05-25,Saturday,Other,Walking the dog,1.25
+1,20,2019-05-25,Saturday,Other,Eating,1
+1,20,2019-05-25,Saturday,Other,Troubleshooting,0.5
+1,20,2019-05-25,Saturday,Project & Portfolio 2,Doing Homework,0.5
+1,21,2019-05-26,Sunday,Other,Sleep,6.5
+1,21,2019-05-26,Sunday,Other,Driving/In the car,0.75
+1,21,2019-05-26,Sunday,Other,Eating,1
+1,21,2019-05-26,Sunday,Project & Portfolio 2,Researching,0.25
+1,21,2019-05-26,Sunday,Project & Portfolio 2,Writing,0.75
+1,21,2019-05-26,Sunday,Project & Portfolio 2,Data Entry,0.25
+1,21,2019-05-26,Sunday,Project & Portfolio 2,Coding,2
+1,21,2019-05-26,Sunday,Project & Portfolio 2,Troubleshooting,1.5
+1,21,2019-05-26,Sunday,Project & Portfolio 2,Reading,0.25
+1,22,2019-05-27,Monday,Other,Sleep,7
+1,22,2019-05-27,Monday,Other,Driving/In the car,1.75
+1,22,2019-05-27,Monday,Other,Eating,2
+1,22,2019-05-27,Monday,Work,World-Building,0.25
+1,22,2019-05-27,Monday,Other,Walking the dog,1.75
+1,22,2019-05-27,Monday,Project & Portfolio 2,Data Entry,0.25
+1,22,2019-05-27,Monday,Relax,Watching WWE,1.5
+1,23,2019-05-28,Tuesday,Other,Sleep,9
+1,23,2019-05-28,Tuesday,Project & Portfolio 2,Writing,1.5
+1,23,2019-05-28,Tuesday,Project & Portfolio 2,Design Work,0.5
+1,23,2019-05-28,Tuesday,Project & Portfolio 2,Doing Homework,3.5
+1,23,2019-05-28,Tuesday,Other,Eating,1
+1,23,2019-05-28,Tuesday,Project & Portfolio 2,Data Entry,0.25
+1,23,2019-05-28,Tuesday,Project & Portfolio 2,Troubleshooting,0.5
+1,24,2019-05-29,Wednesday,Other,Sleep,8
+1,24,2019-05-29,Wednesday,Project & Portfolio 2,Doing Homework,3
+1,24,2019-05-29,Wednesday,Work,Reading,0.5
+1,24,2019-05-29,Wednesday,Work,Writing,2
+1,24,2019-05-29,Wednesday,Other,Eating,1.5
+1,24,2019-05-29,Wednesday,Other,Walking the dog,1.75
+1,24,2019-05-29,Wednesday,Relax,Watching WWE,1
+1,25,2019-05-30,Thursday,Other,Sleep,10
+1,25,2019-05-30,Thursday,Other,Driving/In the car,0.5
+1,25,2019-05-30,Thursday,Other,Eating,2.5
+1,25,2019-05-30,Thursday,Other,Walking the dog,1.25
+1,25,2019-05-30,Thursday,Project & Portfolio 2,Data Entry,0.5
+1,25,2019-05-30,Thursday,Project & Portfolio 2,Researching,1.5
+1,25,2019-05-30,Thursday,Project & Portfolio 2,Writing,2.25
+1,26,2019-05-31,Friday,Other,Sleep,7
+1,26,2019-05-31,Friday,Other,Driving/In the car,0.75
+1,26,2019-05-31,Friday,Other,Eating,1.5
+1,26,2019-05-31,Friday,Project & Portfolio 2,Doing Homework,1.5
+1,26,2019-05-31,Friday,Project & Portfolio 2,Data Entry,0.25
+1,26,2019-05-31,Friday,Project & Portfolio 2,Coding,3.75
+1,26,2019-05-31,Friday,Project & Portfolio 2,Troubleshooting,1.75
