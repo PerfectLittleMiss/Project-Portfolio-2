@@ -23,13 +23,12 @@ namespace KinaoleLau_ConvertedData
                 playerNumber++;
             }
 
-            players.Sort((x, y) => x.totalValue.CompareTo(y.totalValue));
+            players.Sort((x, y) => y.totalValue.CompareTo(x.totalValue));
 
-            string cards;
-
-            foreach(string card in players[])
-
-            Console.WriteLine("1st Place: Player {0} - {1}: {2} Score: {3}", playerNamesAndNumbers[players[0].GetName()], players[0].GetName(), players[0].GetHand(), players[0].totalValue);
+            Console.WriteLine("1st Place: Player {0} - {1}: {2} Score: {3}", playerNamesAndNumbers[players[0].GetName()], players[0].GetName(), GetHand(players[0]), players[0].totalValue);
+            Console.WriteLine("2nd Place: Player {0} - {1}: {2} Score: {3}", playerNamesAndNumbers[players[1].GetName()], players[1].GetName(), GetHand(players[1]), players[1].totalValue);
+            Console.WriteLine("3rd Place: Player {0} - {1}: {2} Score: {3}", playerNamesAndNumbers[players[2].GetName()], players[2].GetName(), GetHand(players[2]), players[2].totalValue);
+            Console.WriteLine("4th Place: Player {0} - {1}: {2} Score: {3}", playerNamesAndNumbers[players[3].GetName()], players[3].GetName(), GetHand(players[3]), players[3].totalValue);
 
             Console.WriteLine("Press any key to return to the main menu...");
             Console.ReadKey();
@@ -124,6 +123,18 @@ namespace KinaoleLau_ConvertedData
             }
 
             return players;
+        }
+
+        private static string GetHand(Player player)
+        {
+            string cards = null;
+
+            foreach (string card in player.GetHand())
+            {
+                cards += card + " ";
+            }
+
+            return cards.Trim();
         }
     }
 }
