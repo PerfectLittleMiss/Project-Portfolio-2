@@ -51,8 +51,7 @@ namespace KinaoleLau_ConvertedData
                     case "4":
                     case "play a card game":
                     case "play game":
-                        Console.WriteLine("Option not available yet.");
-                        Pause();
+                        CardGame.Menu();
                         break;
 
                     case "5":

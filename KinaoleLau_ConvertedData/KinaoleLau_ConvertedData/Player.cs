@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace KinaoleLau_ConvertedData
 {
-    class Player
+    public class Player
     {
         private string name;
         private List<string> hand;
-        private int totalValue;
+        public int totalValue { get; set; }
 
         public Player(string _name)
         {
             name = _name;
+        }
+
+        public string GetName()
+        {
+            return name;
         }
 
         public List<string> GetHand()
@@ -24,15 +29,6 @@ namespace KinaoleLau_ConvertedData
         public void SetHand(List<string> _hand)
         {
             hand = _hand;
-        }
-
-        public int GetValue()
-        {
-            return totalValue;
-        }
-        public void SetValue(int value)
-        {
-            totalValue = value;
         }
     }
 }

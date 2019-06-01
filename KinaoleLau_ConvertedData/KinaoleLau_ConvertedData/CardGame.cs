@@ -10,22 +10,29 @@ namespace KinaoleLau_ConvertedData
     {
         public static void Menu()
         {
-            //bool to determine if running
-            bool running = true;
+            //Create a dictionary to hold the player names and numbers
+            Dictionary<string, int> playerNamesAndNumbers = new Dictionary<string, int>();
 
-            while(running)
+            // Get the players with their data
+            List<Player> players = DealDeck();
+
+            int playerNumber = 1;
+            foreach(Player player in players)
             {
-                // create a list to hold the players
-                List<string> players = DatabaseFunctions.GetPlayers();
-
-                // create dictionary to hold the players with their scores
-                Dictionary<int, string> playersAndScores = new Dictionary<int, string>();
-
-                // get the deck
-                Dictionary<string, int> cards = CreateDeck();
-
-
+                playerNamesAndNumbers.Add(player.GetName(), playerNumber);
+                playerNumber++;
             }
+
+            players.Sort((x, y) => x.totalValue.CompareTo(y.totalValue));
+
+            string cards;
+
+            foreach(string card in players[])
+
+            Console.WriteLine("1st Place: Player {0} - {1}: {2} Score: {3}", playerNamesAndNumbers[players[0].GetName()], players[0].GetName(), players[0].GetHand(), players[0].totalValue);
+
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadKey();
         }
 
         // create the card deck
@@ -72,6 +79,51 @@ namespace KinaoleLau_ConvertedData
             }
 
             return cards;
+        }
+
+        private static List<Player> DealDeck()
+        {
+            // create a list to hold the player names
+            List<string> playerNames = DatabaseFunctions.GetPlayers();
+
+            // get the deck
+            Dictionary<string, int> cards = CreateDeck();
+
+            // Create a list to hold the players themselves
+            List<Player> players = new List<Player>();
+
+
+            Random rand = new Random();
+            //convert the keys of the cards dictionary to a list
+            List<string> keys = cards.Keys.ToList();
+
+            foreach (string name in playerNames)
+            {
+                // create a new Player
+                Player newPlayer = new Player(name);
+                //create a list to hold the cards for the player
+                List<string> playerCards = new List<string>();
+                // create an int to hold the value of all the cards
+                int valueOfCards = 0;
+
+                for (int i = 0; i < 13; i++)
+                {
+                    int randomNumber = rand.Next(0, keys.Count);
+                    string cardName = keys[randomNumber];
+                    int cardValue = cards[cardName];
+                    keys.Remove(cardName);
+
+                    playerCards.Add(cardName);
+                    valueOfCards += cardValue;
+                }
+
+                newPlayer.SetHand(playerCards);
+                newPlayer.totalValue = valueOfCards;
+
+                players.Add(newPlayer);
+            }
+
+            return players;
         }
     }
 }
